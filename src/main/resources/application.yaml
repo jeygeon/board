@@ -1,0 +1,29 @@
+spring:
+  # DataBase 설정
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/board?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password:
+
+  # 타임리프: 새로고침 후 적용을 위한 설정
+  thymeleaf:
+    cache: false
+  devtools:
+    restart:
+      enabled: false
+
+  jpa:
+    # 쿼리 확인 (default: false)
+    show-sql: true
+
+    # 변수 명 그대로 사용 (자동으로 snake case 변환 방지)
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+# 기동 서버 포트 설정
+server:
+  port: 8088
+
+
