@@ -19,6 +19,8 @@ public class UserDTO {
 
     private String password;
 
+    private String phoneNumber;
+
     private int role;
 
     private long regDate;
@@ -29,6 +31,7 @@ public class UserDTO {
                 .name(this.name)
                 .id(this.id)
                 .password(this.password)
+                .phoneNumber(this.phoneNumber)
                 .role(this.role)
                 .regDate(this.regDate)
                 .build();

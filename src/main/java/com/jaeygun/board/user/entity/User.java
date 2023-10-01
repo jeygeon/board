@@ -33,19 +33,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long uid;
 
-    @Column
     private String name;
 
-    @Column
     private String id;
 
-    @Column
     private String password;
 
-    @Column
+    private String phoneNumber;
+
     private int role;
 
-    @Column
     private long regDate;
 
     public UserDTO toDTO() {
@@ -54,6 +51,7 @@ public class User {
                 .name(this.name)
                 .id(this.id)
                 .password(this.password)
+                .phoneNumber(this.phoneNumber)
                 .role(this.role)
                 .regDate(this.regDate)
                 .build();

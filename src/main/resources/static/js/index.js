@@ -1,8 +1,12 @@
 function join() {
     var passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/,
+        phoneNumberRegex = /^\d{4}$/,
         _name = $('#name').val(),
         _id= $('#id').val(),
         _password = $('#password').val(),
+        _fPhoneNumber = $('#phoneNumber-first').val(),
+        _mPhoneNumber = $('#phoneNumber-middle').val(),
+        _lPhoneNumber = $('#phoneNumber-last').val(),
         param = null;
 
     if (_name == '') {
@@ -35,10 +39,32 @@ function join() {
         return false;
     }
 
+    if (_mPhoneNumber == '' || _lPhoneNumber == '') {
+        alert('핸드폰 번호를 입력해주세요.');
+        if (_mPhoneNumber == '') {
+            $('#phoneNumber-middle').focus();
+            return false;
+        } else {
+            $('#phoneNumber-last').focus();
+            return false;
+        }
+    }
+
+    if (!phoneNumberRegex.test(_mPhoneNumber)) {
+        alert('올바른 4자리 번호를 입력해주세요.');
+        $('#phoneNumber-middle').focus();
+        return false;
+    } else if (!phoneNumberRegex.test(_lPhoneNumber)) {
+        alert('올바른 4자리 번호를 입력해주세요.');
+        $('#phoneNumber-last').focus();
+        return false;
+    }
+
     param = {
         name : _name,
         id : _id,
-        password : _password
+        password : _password,
+        phoneNumber : _fPhoneNumber + _mPhoneNumber + _lPhoneNumber
     };
 
     $.ajax({
