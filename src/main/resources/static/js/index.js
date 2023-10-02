@@ -119,5 +119,64 @@ function login() {
             }
         }
     })
+}
 
+function findUser() {
+    var phoneNumberRegex = /^\d{4}$/,
+        _name = $('#name').val(),
+        _fPhoneNumber = $('#phoneNumber-first').val(),
+        _mPhoneNumber = $('#phoneNumber-middle').val(),
+        _lPhoneNumber = $('#phoneNumber-last').val(),
+        param = null;
+
+    if (_name == '') {
+        alert('이름을 입력해주세요.');
+        $('#name').focus();
+        return false;
+    }
+
+    if (_mPhoneNumber == '' || _lPhoneNumber == '') {
+        alert('핸드폰 번호를 입력해주세요.');
+        if (_mPhoneNumber == '') {
+            $('#phoneNumber-middle').focus();
+            return false;
+        } else {
+            $('#phoneNumber-last').focus();
+            return false;
+        }
+    }
+
+    if (!phoneNumberRegex.test(_mPhoneNumber)) {
+        alert('올바른 4자리 번호를 입력해주세요.');
+        $('#phoneNumber-middle').focus();
+        return false;
+    } else if (!phoneNumberRegex.test(_lPhoneNumber)) {
+        alert('올바른 4자리 번호를 입력해주세요.');
+        $('#phoneNumber-last').focus();
+        return false;
+    }
+
+    param = {
+        name : _name,
+        phoneNumber : _fPhoneNumber + _mPhoneNumber + _lPhoneNumber
+    };
+
+    $.ajax({
+        url: '/user/findUser.json',
+        type: 'POST',
+        data: param,
+        dataType: 'json',
+        success:function(data) {
+            if (data.result) {
+                var form = ''
+                for (var i=0; i<data.idList.length; i++) {
+                    form += '<div>' + data.idList[i] + '</div>';
+                }
+                $('#idList').html(form);
+            } else {
+                alert(data.message);
+                return false;
+            }
+        }
+    })
 }

@@ -107,6 +107,12 @@ public class CommonController {
         return "common/main";
     }
 
+    @GetMapping("/find")
+    public String find() {
+
+        return "common/find";
+    }
+
     @GetMapping("/logout")
     public String logout(HttpSession session) {
 

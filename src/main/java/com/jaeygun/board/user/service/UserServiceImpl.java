@@ -6,6 +6,9 @@ import com.jaeygun.board.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
@@ -41,5 +44,19 @@ public class UserServiceImpl implements UserService{
             return null;
         }
         return user.toDTO();
+    }
+
+    @Override
+    public List<UserDTO> getUserByNameAndPhoneNumber(UserDTO userDTO) {
+
+        User user = userDTO.toEntity();
+        List<UserDTO> existUserList = new ArrayList<UserDTO>();
+
+        List<User> userList = userRepository.findUserByNameAndPhoneNumber(user.getName(), user.getPhoneNumber());
+        for (User existUser : userList) {
+            existUserList.add(existUser.toDTO());
+        }
+
+        return existUserList;
     }
 }
