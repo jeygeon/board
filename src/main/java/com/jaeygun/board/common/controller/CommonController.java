@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,10 +29,16 @@ public class CommonController {
 
     private final CommonService commonService;
 
-    @GetMapping({"/", "/login"})
+    @GetMapping({"/", "/main"})
     public String index(HttpServletRequest request) {
 
-        return "common/index";
+        return "common/main";
+    }
+
+    @GetMapping({"/login"})
+    public String login(HttpServletRequest request) {
+
+        return "common/login";
     }
 
     @PostMapping("/login.json")
@@ -96,17 +101,6 @@ public class CommonController {
         return resultMap;
     }
 
-    @GetMapping("/main")
-    public String main(HttpServletRequest request, HttpSession session, Model model) {
-
-        UserDTO user = (UserDTO) session.getAttribute("loginUser");
-        if (user == null) {
-            return "redirect:/login";
-        }
-        model.addAttribute("user", user);
-        return "common/main";
-    }
-
     @GetMapping("/find")
     public String find() {
 
@@ -121,7 +115,7 @@ public class CommonController {
             log.info("사용자 로그아웃 > name : " + user.getName() + ", id : " + user.getId());
             session.invalidate();
         }
-        return "redirect:/login";
+        return "redirect:/main";
     }
 
 }

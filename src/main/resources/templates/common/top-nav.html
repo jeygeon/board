@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:fragment="topNavStyleFragment">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <link th:href="@{/css/top-nav.css}" rel="stylesheet">
+    <link th:href="@{/css/reset.css}" rel="stylesheet">
+</head>
+<body>
+    <nav class="top-bar" th:fragment="topNavFragment">
+        <span class="title">TripTo</span>
+        <span class="search-section">
+                <input type="text" class="search-bar" value="" placeholder="Search">
+            </span>
+        <ul style="display: inline-block; margin-left: auto;">
+            <li>Recommand</li>
+            <li>Suggest</li>
+            <li>
+                <a href="/login">Sign in</a>
+            </li>
+            <li>
+                <a href="/join">Sign up</a>
+            </li>
+        </ul>
+    </nav>
+</body>
+</html>

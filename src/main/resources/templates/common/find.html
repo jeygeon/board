@@ -14,11 +14,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.contextMenu.js" integrity="sha512-2ABKLSEpFs5+UK1Ol+CgAVuqwBCHBA0Im0w4oRCflK/n8PUVbSv5IY7WrKIxMynss9EKLVOn1HZ8U/H2ckimWg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.ui.position.js" integrity="sha512-vBR2rismjmjzdH54bB2Gx+xSe/17U0iHpJ1gkyucuqlTeq+Q8zwL8aJDIfhQtnWMVbEKMzF00pmFjc9IPjzR7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <!-- <link th:href="@{/css/style.css}" rel="stylesheet"> -->
     <script src="/js/index.js"></script>
-    <style th:replace="common/top-nav.html :: topNavStyleFragment"></style>
 </head>
 <body>
-    <nav th:replace="common/top-nav.html :: topNavFragment"></nav>
-    <img src="/image/polynesia-3021072_1920.jpg" style="width: 100%; height: 650px;">
+    <div>
+        <span>아이디찾기</span>
+        <input type="text" id="name" value="" placeholder="이름">
+        <select id="phoneNumber-first">
+            <option value="010">010</option>
+            <option value="011">011</option>
+            <option value="016">016</option>
+            <option value="017">017</option>
+            <option value="018">018</option>
+            <option value="019">019</option>
+        </select> -
+        <input type="text" value="" id="phoneNumber-middle"> -
+        <input type="text" value="" id="phoneNumber-last">
+        <input type="button" value="찾기" onclick="javascript:findUser();">
+    </div>
+    <div id="idList"></div>
 </body>
 </html>
