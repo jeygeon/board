@@ -18,10 +18,35 @@
     <script src="/js/index.js"></script>
 </head>
 <body>
-    <input type="text" id="id" value="" placeholder="아이디">
-    <input type="password" id="password" value="" placeholder="패스워드">
-    <button onclick="javascript:login()">로그인</button>
-    <a href="/join">회원가입</a>
-    <a href="/find">아이디 또는 패스워드를 잃어버렸습니까?</a>
+    <div class="login-container" th:fragment="loginFormFragment">
+        <div class="modal">
+            <div class="login-form">
+                <p class="title">TripTO</p>
+                <p>아이디</p>
+                <input type="text" id="id" value="">
+                <p>비밀번호</p>
+                <input type="password" id="password" value="">
+                <input type="button" value="로그인" onclick="javascript:login()">
+                <a href="/find">아이디 또는 패스워드를 분실하셨나요?</a>
+                <a href="/join">회원가입</a>
+            </div>
+            <div class="sns-login-form">
+
+            </div>
+        </div>
+    </div>
+    <script th:fragment="loginFormScrFragment">
+        $('#popupBtn').click(function(){
+            $('.login-container').addClass('modal-open');
+            $('.login-container').css('visibility', 'visible');
+        });
+
+        $('.login-container').click(function(event) {
+            if ($(event.target).hasClass('login-container') == true) {
+                $('.login-container').removeClass('modal-open');
+                $('.login-container').css('visibility', 'hidden');
+            }
+        })
+    </script>
 </body>
 </html>
