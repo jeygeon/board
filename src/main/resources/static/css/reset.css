@@ -28,6 +28,7 @@ body {
 }
 ol, ul {
     list-style: none;
+    margin-bottom: 0px !important;
 }
 blockquote, q {
     quotes: none;

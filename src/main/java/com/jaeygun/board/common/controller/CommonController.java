@@ -35,12 +35,6 @@ public class CommonController {
         return "common/main";
     }
 
-    @GetMapping({"/login"})
-    public String login(HttpServletRequest request) {
-
-        return "common/login";
-    }
-
     @PostMapping("/login.json")
     @ResponseBody
     public Map<String, Object> login(HttpServletRequest request, HttpSession session, UserDTO userDTO) {

@@ -2,8 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 
@@ -18,35 +17,26 @@
     <script src="/js/index.js"></script>
 </head>
 <body>
-    <div class="login-container" th:fragment="loginFormFragment">
-        <div class="modal">
-            <div class="login-form">
-                <p class="title">TripTO</p>
-                <p>아이디</p>
-                <input type="text" id="id" value="">
-                <p>비밀번호</p>
-                <input type="password" id="password" value="">
-                <input type="button" value="로그인" onclick="javascript:login()">
-                <a href="/find">아이디 또는 패스워드를 분실하셨나요?</a>
-                <a href="/join">회원가입</a>
-            </div>
-            <div class="sns-login-form">
-
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" th:fragment="loginFormFragment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <p>아이디</p>
+                    <input type="text" id="id" value="">
+                    <p>비밀번호</p>
+                    <input type="password" id="password" value="">
+                    <input type="button" value="로그인">
+                    <a href>아이디 또는 패스워드 찾기</a> /
+                    <a href>회원가입</a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
         </div>
     </div>
-    <script th:fragment="loginFormScrFragment">
-        $('#popupBtn').click(function(){
-            $('.login-container').addClass('modal-open');
-            $('.login-container').css('visibility', 'visible');
-        });
-
-        $('.login-container').click(function(event) {
-            if ($(event.target).hasClass('login-container') == true) {
-                $('.login-container').removeClass('modal-open');
-                $('.login-container').css('visibility', 'hidden');
-            }
-        })
-    </script>
 </body>
 </html>

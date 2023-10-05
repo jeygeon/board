@@ -14,10 +14,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.contextMenu.js" integrity="sha512-2ABKLSEpFs5+UK1Ol+CgAVuqwBCHBA0Im0w4oRCflK/n8PUVbSv5IY7WrKIxMynss9EKLVOn1HZ8U/H2ckimWg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.2/jquery.ui.position.js" integrity="sha512-vBR2rismjmjzdH54bB2Gx+xSe/17U0iHpJ1gkyucuqlTeq+Q8zwL8aJDIfhQtnWMVbEKMzF00pmFjc9IPjzR7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+
     <script src="/js/index.js"></script>
     <style th:replace="common/top-nav.html :: topNavStyleFragment"></style>
-
-    <link th:href="@{/css/loginForm.css}" rel="stylesheet">
 </head>
 <body>
     <nav th:replace="common/top-nav.html :: topNavFragment"></nav>
@@ -25,7 +30,5 @@
 
     <!-- 로그인 팝업 창 -->
     <div th:replace="common/login.html :: loginFormFragment"></div>
-    <!-- 로그인 팝업 창 관련 스크립트 -->
-    <script th:replace="common/login.html :: loginFormScrFragment"></script>
 </body>
 </html>
