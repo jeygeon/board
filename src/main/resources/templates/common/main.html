@@ -22,11 +22,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
 
     <script src="/js/index.js"></script>
-    <style th:replace="common/top-nav.html :: topNavStyleFragment"></style>
+    <style th:replace="common/topNav.html :: topNavStyleFragment"></style>
 </head>
 <body>
-    <nav th:replace="common/top-nav.html :: topNavFragment"></nav>
-    <img src="/image/polynesia-3021072_1920.jpg" style="width: 100%; height: 650px;">
+    <!-- 상단 nav -->
+    <nav th:replace="common/topNav.html :: topNavFragment"></nav>
+
+    <!-- 캐러셀 이미지 -->
+    <div th:replace="common/mainCarousel.html :: carouselFragment"></div>
 
     <!-- 로그인 팝업 창 -->
     <div th:replace="common/login.html :: loginFormFragment"></div>
