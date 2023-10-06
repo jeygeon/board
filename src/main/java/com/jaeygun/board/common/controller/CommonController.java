@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,7 +31,10 @@ public class CommonController {
     private final CommonService commonService;
 
     @GetMapping({"/", "/main"})
-    public String index(HttpServletRequest request) {
+    public String index(HttpServletRequest request, HttpSession session, Model model) {
+
+        UserDTO userDTO = (UserDTO) session.getAttribute("loginUser");
+        model.addAttribute("user", userDTO);
 
         return "common/main";
     }

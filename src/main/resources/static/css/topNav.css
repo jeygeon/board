@@ -42,6 +42,11 @@ li {
     border-radius: 15px;
     outline: none;
     background-color: rgb(233, 233, 233);
+    transition: all 0.5s;
+}
+
+.search-bar:focus {
+    box-shadow: 5px 5px 20px 0px #636e72;
 }
 
 .search-bar:focus {

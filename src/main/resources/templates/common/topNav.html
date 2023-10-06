@@ -17,10 +17,16 @@
         <ul style="display: inline-block; margin-left: auto;">
             <li>Recommand</li>
             <li>Suggest</li>
-            <li data-bs-toggle="modal" data-bs-target="#exampleModal">Sign in</li>
-            <li>
-                <a href="/join">Sign up</a>
-            </li>
+            <th:block th:if="${user == null}">
+                <li data-bs-toggle="modal" data-bs-target="#exampleModal">Sign in</li>
+                <li>
+                    <a href="/join">Sign up</a>
+                </li>
+            </th:block>
+            <th:block th:unless="${user == null}">
+                <li>MyPage</li>
+                <li th:text="${user.name} + '님 반갑습니다.'"></li>
+            </th:block>
         </ul>
     </nav>
 </body>
