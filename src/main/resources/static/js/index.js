@@ -68,7 +68,7 @@ function join() {
     };
 
     $.ajax({
-        url: '/join.json',
+        url: '/user/join.json',
         type: 'POST',
         data: param,
         dataType: 'json',

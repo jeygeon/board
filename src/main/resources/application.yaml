@@ -27,3 +27,11 @@ server:
   port: 8088
 
 
+login:
+  naver:
+    baseUrl: https://nid.naver.com/oauth2.0
+    clientId: nmgPfT3ppaV7bwUMxadS
+    redirectUrl: http://127.0.0.1/login/naver
+    clientSecret: HSwHfLYyRH
+
+
