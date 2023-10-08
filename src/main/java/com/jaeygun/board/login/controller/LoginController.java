@@ -81,6 +81,7 @@ public class LoginController {
     }
 
     @GetMapping ("/oauth/naver-callback")
+    @ResponseBody
     public void naverCallBack (NaverCallBackDTO callBackDTO) throws UnsupportedEncodingException, JsonProcessingException {
 
         ObjectMapper mapper = new ObjectMapper();

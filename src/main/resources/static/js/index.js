@@ -2,8 +2,10 @@ function join() {
     var passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/,
         phoneNumberRegex = /^\d{4}$/,
         _name = $('#name').val(),
+        _nickName = $('#nickName').val(),
         _id= $('#id').val(),
         _password = $('#password').val(),
+        _emailId = $('#emailId').val(),
         _fPhoneNumber = $('#phoneNumber-first').val(),
         _mPhoneNumber = $('#phoneNumber-middle').val(),
         _lPhoneNumber = $('#phoneNumber-last').val(),
@@ -12,6 +14,12 @@ function join() {
     if (_name == '') {
         alert('이름을 입력해주세요.');
         $('#name').focus();
+        return false;
+    }
+
+    if (_nickName == '') {
+        alert('닉네임을 입력해주세요.');
+        $('#nickName').focus();
         return false;
     }
 
@@ -62,8 +70,10 @@ function join() {
 
     param = {
         name : _name,
+        nickName : _nickName,
         id : _id,
         password : _password,
+        emailId : _emailId,
         phoneNumber : _fPhoneNumber + _mPhoneNumber + _lPhoneNumber
     };
 

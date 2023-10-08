@@ -35,13 +35,19 @@ public class User {
 
     private String name;
 
+    private String nickName;
+
     private String id;
 
     private String password;
 
+    private String emailId;
+
     private String phoneNumber;
 
     private int role;
+
+    private int regType;
 
     private long regDate;
 
@@ -49,10 +55,13 @@ public class User {
         return UserDTO.builder()
                 .uid(this.uid)
                 .name(this.name)
+                .nickName(this.nickName)
                 .id(this.id)
                 .password(this.password)
+                .emailId(this.emailId)
                 .phoneNumber(this.phoneNumber)
                 .role(this.role)
+                .regType(this.regType)
                 .regDate(this.regDate)
                 .build();
     }
