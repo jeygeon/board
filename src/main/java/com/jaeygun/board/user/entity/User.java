@@ -45,6 +45,8 @@ public class User {
 
     private String phoneNumber;
 
+    private String birthday;
+
     private int role;
 
     private int regType;
@@ -60,6 +62,7 @@ public class User {
                 .password(this.password)
                 .emailId(this.emailId)
                 .phoneNumber(this.phoneNumber)
+                .birthday(this.birthday)
                 .role(this.role)
                 .regType(this.regType)
                 .regDate(this.regDate)

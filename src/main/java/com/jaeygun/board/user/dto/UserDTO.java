@@ -25,6 +25,8 @@ public class UserDTO {
 
     private String phoneNumber;
 
+    private String birthday;
+
     private int role;
 
     private int regType;
@@ -40,6 +42,7 @@ public class UserDTO {
                 .password(this.password)
                 .emailId(this.emailId)
                 .phoneNumber(this.phoneNumber)
+                .birthday(this.birthday)
                 .role(this.role)
                 .regType(this.regType)
                 .regDate(this.regDate)

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jaeygun.board.login.dto.NaverCallBackDTO;
 import com.jaeygun.board.login.dto.NaverTokenDTO;
+import com.jaeygun.board.login.dto.NaverUserResDTO;
 import com.jaeygun.board.login.service.LoginService;
 import com.jaeygun.board.user.dto.UserDTO;
 import com.jaeygun.board.user.service.UserService;
@@ -81,15 +82,34 @@ public class LoginController {
     }
 
     @GetMapping ("/oauth/naver-callback")
-    @ResponseBody
-    public void naverCallBack (NaverCallBackDTO callBackDTO) throws UnsupportedEncodingException, JsonProcessingException {
+    public String naverCallBack (HttpSession session, NaverCallBackDTO callBackDTO) throws UnsupportedEncodingException, JsonProcessingException {
 
         ObjectMapper mapper = new ObjectMapper();
 
         String responseToken = loginService.getNaverTokenUrl("token", callBackDTO);
         NaverTokenDTO token = mapper.readValue(responseToken, NaverTokenDTO.class);
 
-        String test = loginService.getNaverUserByToken(token);
-        System.out.println(test.toString());
+        String naverUserResponse = loginService.getNaverUserByToken(token);
+        NaverUserResDTO naverUserResDTO = mapper.readValue(naverUserResponse, NaverUserResDTO.class);
+
+        // 사용자 정보 가져오는 거 실패했을 때 예외처리
+        if (!"00".equals(naverUserResDTO.getResultCode())) {
+            log.info("[네이버 사용자 로그인] 사용자 정보를 가져오는 데 실패했습니다. meessage : " + naverUserResDTO.getMessage());
+            return "redirect:/main";
+        }
+
+        // 획득한 네이버 사용자 정보로 DB에 존재하는 사용자인지 체크
+        UserDTO userDTO = userService.getNaverUser(naverUserResDTO.getNaverUser());
+        if (userDTO != null) {
+            log.info("[네이버 사용자 로그인] name : " + userDTO.getName() + ", emailId : " + userDTO.getEmailId());
+            loginService.login(session, userDTO);
+            return "redirect:/main";
+        }
+
+        // 사용자가 없다면 사용자 추가
+        UserDTO addNaverUser = userService.addNaverUser(naverUserResDTO.getNaverUser());
+        loginService.login(session, userDTO);
+        log.info("[네이버 사용자 추가] name : " + addNaverUser.getName() + ", emailId : " + addNaverUser.getEmailId());
+        return "redirect:/main";
     }
 }
