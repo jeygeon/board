@@ -86,6 +86,10 @@ public class LoginController {
 
         ObjectMapper mapper = new ObjectMapper();
 
+        if (callBackDTO.getCode() == null) {
+            // 비정상적인 접근입니다. alert창 띄어주고 main으로 리다이렉트
+            return "redirect:/main";
+        }
         String responseToken = loginService.getNaverTokenUrl("token", callBackDTO);
         NaverTokenDTO token = mapper.readValue(responseToken, NaverTokenDTO.class);
 

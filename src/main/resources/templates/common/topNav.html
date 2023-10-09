@@ -24,7 +24,6 @@
                 </li>
             </th:block>
             <th:block th:unless="${user == null}">
-                <li>MyPage</li>
                 <li th:text="${user.nickName} + '님 반갑습니다.'"></li>
             </th:block>
         </ul>
