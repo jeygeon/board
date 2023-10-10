@@ -2,6 +2,7 @@ package com.jaeygun.board.login.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jaeygun.board.common.dto.MessageDTO;
 import com.jaeygun.board.login.dto.NaverCallBackDTO;
 import com.jaeygun.board.login.dto.NaverTokenDTO;
 import com.jaeygun.board.login.dto.NaverUserResDTO;
@@ -14,10 +15,8 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +25,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/login")
 public class LoginController {
@@ -37,7 +36,7 @@ public class LoginController {
 
     private final LoginService loginService;
 
-    @PostMapping("/login.json")
+    @PostMapping("/login")
     @ResponseBody
     public Map<String, Object> login(HttpServletRequest request, HttpSession session, UserDTO userDTO) {
 
@@ -82,14 +81,18 @@ public class LoginController {
     }
 
     @GetMapping ("/oauth/naver-callback")
-    public String naverCallBack (HttpSession session, NaverCallBackDTO callBackDTO) throws UnsupportedEncodingException, JsonProcessingException {
+    public String naverCallBack (HttpSession session, Model model, NaverCallBackDTO callBackDTO) throws UnsupportedEncodingException, JsonProcessingException {
 
         ObjectMapper mapper = new ObjectMapper();
 
+        // 비정상적인 접근 시 alert 띄운 후 main 페이지 리다이렉트
         if (callBackDTO.getCode() == null) {
-            // 비정상적인 접근입니다. alert창 띄어주고 main으로 리다이렉트
-            return "redirect:/main";
+            MessageDTO messageDTO = new MessageDTO();
+            messageDTO.setMessage("비정상적인 접근입니다.");
+            messageDTO.setRedirectUri("/main");
+            return ClientUtil.alertAndRedirect(model, messageDTO);
         }
+
         String responseToken = loginService.getNaverTokenUrl("token", callBackDTO);
         NaverTokenDTO token = mapper.readValue(responseToken, NaverTokenDTO.class);
 

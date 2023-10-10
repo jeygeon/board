@@ -78,7 +78,7 @@ function join() {
     };
 
     $.ajax({
-        url: '/user/join.json',
+        url: '/user/join',
         type: 'POST',
         data: param,
         dataType: 'json',
@@ -117,7 +117,7 @@ function login() {
     }
 
     $.ajax({
-        url: '/login.json',
+        url: '/login',
         type: 'POST',
         data: param,
         dataType: 'json',
@@ -172,7 +172,7 @@ function findUser() {
     };
 
     $.ajax({
-        url: '/user/findUser.json',
+        url: '/user/find',
         type: 'POST',
         data: param,
         dataType: 'json',

@@ -15,16 +15,25 @@
                 <input type="text" class="search-bar" value="" placeholder="Search">
             </span>
         <ul style="display: inline-block; margin-left: auto;">
-            <li>Recommand</li>
-            <li>Suggest</li>
+            <li class="top-menu">Recommand</li>
+            <li class="top-menu">Suggest</li>
             <th:block th:if="${user == null}">
-                <li data-bs-toggle="modal" data-bs-target="#exampleModal">Sign in</li>
-                <li>
+                <li class="top-menu" data-bs-toggle="modal" data-bs-target="#exampleModal">Sign in</li>
+                <li class="top-menu">
                     <a href="/join">Sign up</a>
                 </li>
             </th:block>
             <th:block th:unless="${user == null}">
-                <li th:text="${user.nickName} + '님 반갑습니다.'"></li>
+                <li class="top-menu" th:text="${user.nickName} + '님 반갑습니다.'" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"></li>
+                <div class="dropdown">
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/login/logout">로그아웃</a></li>
+                    </ul>
+                </div>
             </th:block>
         </ul>
     </nav>
