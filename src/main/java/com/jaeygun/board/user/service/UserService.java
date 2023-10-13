@@ -49,7 +49,7 @@ public interface UserService {
 
     /**
      * 네이버 로그인
-     * 응답받은 사용자 정보로 존재하는 사용자인지 확득
+     * 응답받은 사용자 정보로 존재하는 사용자인지 확인
      *
      * @param naverUserDTO
      */

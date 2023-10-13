@@ -9,6 +9,7 @@ function join() {
         _fPhoneNumber = $('#phoneNumber-first').val(),
         _mPhoneNumber = $('#phoneNumber-middle').val(),
         _lPhoneNumber = $('#phoneNumber-last').val(),
+        _birthday = $('#birthday').val(),
         param = null;
 
     if (_name == '') {
@@ -68,13 +69,20 @@ function join() {
         return false;
     }
 
+    if (_birthday == '') {
+        alert('생년월일을 입력해주세요.');
+        $('#birthday').focus();
+        return false;
+    }
+
     param = {
         name : _name,
         nickName : _nickName,
         id : _id,
         password : _password,
         emailId : _emailId,
-        phoneNumber : _fPhoneNumber + _mPhoneNumber + _lPhoneNumber
+        phoneNumber : _fPhoneNumber + _mPhoneNumber + _lPhoneNumber,
+        birthday : _birthday
     };
 
     $.ajax({
@@ -117,7 +125,7 @@ function login() {
     }
 
     $.ajax({
-        url: '/login',
+        url: '/user/login',
         type: 'POST',
         data: param,
         dataType: 'json',
@@ -125,6 +133,7 @@ function login() {
             if (data.result) {
                 window.location.href = data.page;
             } else {
+                alert(data.message);
                 return false;
             }
         }
