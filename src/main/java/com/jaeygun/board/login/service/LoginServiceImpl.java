@@ -4,6 +4,9 @@ import com.jaeygun.board.config.EnvConfig;
 import com.jaeygun.board.login.dto.NaverCallBackDTO;
 import com.jaeygun.board.login.dto.NaverTokenDTO;
 import com.jaeygun.board.user.dto.UserDTO;
+import com.jaeygun.board.user.entity.User;
+import com.jaeygun.board.user.repository.UserRepository;
+import com.jaeygun.board.util.TimeUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponents;
@@ -13,7 +16,9 @@ import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 
 @Service
 @RequiredArgsConstructor
@@ -21,11 +26,17 @@ public class LoginServiceImpl implements LoginService{
 
     private final EnvConfig envConfig;
 
+    private final UserRepository userRepository;
+
     @Override
     public void login(HttpSession session, UserDTO loginUser) {
 
+        // 마지막 로그인 시간 업데이트
+        loginUser.setLoginTime(TimeUtil.currentTime());
+        User user = userRepository.save(loginUser.toEntity());
+
         // 사용자 저장
-        session.setAttribute("loginUser", loginUser);
+        session.setAttribute("loginUser", user.toDTO());
 
         // 세션 유지 시간 설정
         session.setMaxInactiveInterval(3000);

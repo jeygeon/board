@@ -26,6 +26,8 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserDTO addUser(UserDTO userDTO) {
 
+        userDTO.setRegDate(TimeUtil.currentTime());
+        userDTO.setRegType(RegType.COMMON);
         User user = userRepository.save(userDTO.toEntity());
         if (user == null) {
             return null;
@@ -44,6 +46,7 @@ public class UserServiceImpl implements UserService{
         userDTO.setBirthday(naverUserDTO.getBirthyear() + "." + naverUserDTO.getBirthday().replace("-", "."));
         userDTO.setRegType(RegType.NAVER);
         userDTO.setRegDate(TimeUtil.currentTime());
+        userDTO.setLoginTime(TimeUtil.currentTime());
         User user = userRepository.save(userDTO.toEntity());
 
         NaverUserKeyDTO userKeyDTO = new NaverUserKeyDTO();

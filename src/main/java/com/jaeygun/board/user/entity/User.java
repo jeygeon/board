@@ -51,6 +51,8 @@ public class User {
 
     private int regType;
 
+    private long loginTime;
+
     private long regDate;
 
     public UserDTO toDTO() {
@@ -65,6 +67,7 @@ public class User {
                 .birthday(this.birthday)
                 .role(this.role)
                 .regType(this.regType)
+                .loginTime(this.loginTime)
                 .regDate(this.regDate)
                 .build();
     }
