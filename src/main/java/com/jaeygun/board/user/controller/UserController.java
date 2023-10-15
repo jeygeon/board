@@ -173,4 +173,36 @@ public class UserController {
         response.sendRedirect("/main");
     }
 
+    @GetMapping("/myPage/{uid}")
+    public void myPage(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model, @PathVariable("uid") long uid) throws ServletException, IOException {
+
+        // 요청이 들어온 uid가 본인의 uid인지 확인
+        UserDTO userDTO = userService.getUserByUid(uid);
+        if (userDTO == null) {
+            MessageDTO messageDTO = new MessageDTO();
+            messageDTO.setMessage("조회할 수 없는 사용자입니다.");
+            messageDTO.setRedirectUri("/main");
+            request.setAttribute("messageDTO", messageDTO);
+
+            RequestDispatcher requestDispatehcer = request.getRequestDispatcher("/messageRedirect");
+            requestDispatehcer.forward(request, response);
+            return;
+        }
+
+        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+        if (userDTO.getUid() != loginUser.getUid()) {
+            MessageDTO messageDTO = new MessageDTO();
+            messageDTO.setMessage("비정상적인 접근입니다.");
+            messageDTO.setRedirectUri("/main");
+            request.setAttribute("messageDTO", messageDTO);
+
+            RequestDispatcher requestDispatehcer = request.getRequestDispatcher("/messageRedirect");
+            requestDispatehcer.forward(request, response);
+            return;
+        }
+
+        request.setAttribute("user", loginUser);
+        RequestDispatcher requestDispatehcer = request.getRequestDispatcher("/myPage");
+        requestDispatehcer.forward(request, response);
+    }
 }

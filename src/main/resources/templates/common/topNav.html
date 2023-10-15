@@ -27,11 +27,11 @@
                 <li class="top-menu" th:text="${user.nickName} + '님 반갑습니다.'" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"></li>
                 <div class="dropdown">
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" th:href="@{/user/myPage/{uid}(uid = ${user.uid})}" >MyPage</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
+                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
                     </ul>
                 </div>
             </th:block>

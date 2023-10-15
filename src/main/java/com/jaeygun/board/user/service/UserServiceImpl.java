@@ -93,6 +93,18 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public UserDTO getUserByUid(long uid) {
+
+        User user = userRepository.findUserByUid(uid);
+        if (user == null) {
+            return null;
+        }
+
+        return user.toDTO();
+
+    }
+
+    @Override
     public UserDTO getNaverUser(NaverUserDTO naverUserDTO) {
 
         String key = naverUserDTO.getId();

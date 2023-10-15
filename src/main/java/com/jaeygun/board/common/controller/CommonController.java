@@ -57,4 +57,12 @@ public class CommonController {
         model.addAttribute("messageDTO", messageDTO);
         return "common/messageRedirect";
     }
+
+    @GetMapping("/myPage")
+    public String myPage(HttpServletRequest request, Model model) {
+
+        UserDTO userDTO = (UserDTO) request.getAttribute("user");
+        model.addAttribute("user", userDTO);
+        return "user/myPage";
+    }
 }

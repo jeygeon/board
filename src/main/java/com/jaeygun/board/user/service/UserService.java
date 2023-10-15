@@ -48,6 +48,14 @@ public interface UserService {
     List<UserDTO> getUserByNameAndPhoneNumber(UserDTO userDTO);
 
     /**
+     * 사용자 확인 (by uid)
+     *
+     * @param uid
+     * @return
+     */
+    UserDTO getUserByUid(long uid);
+
+    /**
      * 네이버 로그인
      * 응답받은 사용자 정보로 존재하는 사용자인지 확인
      *
