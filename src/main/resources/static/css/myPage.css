@@ -1,0 +1,77 @@
+html, body {
+    width: 100%;
+    height: 100%;
+}
+.back {
+    background-color: #dae6eb;
+    margin-top: 10vh;
+    height: 100%;
+    width: 100%;
+    padding: 40px 300px 0px;
+}
+
+.profile {
+    background-color: #fff;
+    height: 300px;
+    border-radius: 30px;
+    display: flex;
+    box-shadow: 5px 5px 5px 5px #c8deec;
+}
+
+.profile-edit {
+    height: 100%;
+    width: 40%;
+    text-align: center;
+    padding: 20px 0px;
+    border-right: 1px solid rgba(146,146,148,.3);
+}
+
+.profile-info {
+    height: 100%;
+    width: 60%;
+}
+
+.profile-image {
+    border-radius: 100%;
+    width: 200px;
+    height: 200px;
+    margin-bottom: 20px;
+}
+
+.editPage-btn {
+    display: block;
+    margin: 0 auto;
+    width: 120px;
+    height: 35px;
+    background-color: #dae6eb;
+    border: none;
+    border-radius: 10px;
+    transition: all 0.4s;
+    color: #303038;
+}
+
+.editPage-btn:hover {
+    background-color: #bcd4de;
+}
+
+.profile-info {
+    display: flex;
+}
+
+.profile-info div {
+    width: 33.3%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.profile-info img {
+    width: 80px;
+}
+
+.profile-info p {
+    margin-top: 30px;
+    font-size: 20px;
+}
