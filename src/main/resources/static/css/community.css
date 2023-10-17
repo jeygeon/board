@@ -1,0 +1,69 @@
+.best-recommand-section,
+.user-post-section {
+    margin-top: 15vh;
+    padding: 0px 100px;
+}
+
+.community-comment {
+    margin-bottom: 10px;
+    font-weight: 700;
+    color: rgb(47, 52, 56);
+}
+
+.recommand-post {
+    width: 33.3%;
+    margin-right: 20px;
+}
+
+.recommand-post:hover,
+.user-post:hover {
+    cursor: pointer;
+}
+
+.post-Thumbnail-box {
+    margin-bottom: 10px;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.post-Thumbnail {
+    width: 100%;
+    border-radius: 20px;
+    transition: all 0.2s;
+}
+
+.post-Thumbnail:hover {
+    transform: scale(1.1);
+}
+
+.recommandPost-preInfo p:first-of-type {
+    margin-bottom: 5px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.recommandPost-preInfo p:nth-of-type(2) {
+    margin-bottom: 3px;
+    text-align: center;
+}
+
+.recommandPost-preInfo p:nth-of-type(3) {
+    text-align: center;
+}
+
+.user-post {
+    width: 25%;
+    margin-right: 15px;
+}
+
+.post-preInfo p:first-of-type {
+    margin-bottom: 5px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bolder;
+}
+
+.post-preInfo p:nth-of-type(2) {
+    text-align: center;
+}

@@ -16,18 +16,20 @@
             </span>
         <ul style="display: inline-block; margin-left: auto;">
             <li class="top-menu">Recommand</li>
-            <li class="top-menu">Suggest</li>
-            <th:block th:if="${user == null}">
+            <li class="top-menu">
+                <a href="/community/main">Community</a>
+            </li>
+            <th:block th:if="${session.loginUser == null}">
                 <li class="top-menu" data-bs-toggle="modal" data-bs-target="#exampleModal">Sign in</li>
                 <li class="top-menu">
                     <a href="/join">Sign up</a>
                 </li>
             </th:block>
-            <th:block th:unless="${user == null}">
-                <li class="top-menu" th:text="${user.nickName} + '님 반갑습니다.'" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"></li>
+            <th:block th:unless="${session.loginUser == null}">
+                <li class="top-menu" th:text="${session.loginUser.nickName} + '님 반갑습니다.'" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"></li>
                 <div class="dropdown">
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{/user/myPage/{uid}(uid = ${user.uid})}" >MyPage</a></li>
+                        <li><a class="dropdown-item" th:href="@{/user/myPage/{uid}(uid = ${session.loginUser.uid})}" >MyPage</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                         <li><hr class="dropdown-divider"></li>

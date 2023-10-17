@@ -27,6 +27,7 @@ li {
     top: 0;
     background-color: #fff;
     z-index: 999;
+    box-shadow: 0px 1px 5px 2px #9ed6e4;
 }
 
 .top-bar .title {
