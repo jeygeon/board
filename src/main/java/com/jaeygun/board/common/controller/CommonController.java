@@ -24,7 +24,7 @@ public class CommonController {
         UserDTO userDTO = (UserDTO) session.getAttribute("loginUser");
         model.addAttribute("user", userDTO);
 
-        return "common/main";
+        return "common/index";
     }
 
     @GetMapping("/join")
