@@ -1,5 +1,6 @@
 package com.jaeygun.board.community.controller;
 
+import com.jaeygun.board.user.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,15 @@ public class CommunityController {
     @GetMapping("/main")
     public String index(HttpSession session, Model model) {
 
+        UserDTO user = (UserDTO) session.getAttribute("loginUser");
+
+        model.addAttribute("user", user);
         return "community/main";
+    }
+
+    @GetMapping("/post")
+    public String post() {
+
+        return "community/post";
     }
 }

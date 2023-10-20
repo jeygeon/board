@@ -110,7 +110,7 @@ public class UserController {
         loginService.login(session, loginUser);
         log.info("사용자 로그인 > name : " + loginUser.getName() + ", id : " + loginUser.getId());
 
-        resultMap.put(ClientUtil.PAGE, "/main");
+        resultMap.put(ClientUtil.PAGE, "/");
         resultMap.put(JsonUtil.RESULT, JsonUtil.SUCCESS);
 
         return resultMap;
@@ -136,7 +136,7 @@ public class UserController {
         if (callBackDTO.getCode() == null) {
             MessageDTO messageDTO = new MessageDTO();
             messageDTO.setMessage("비정상적인 접근입니다.");
-            messageDTO.setRedirectUri("/main");
+            messageDTO.setRedirectUri("/");
             request.setAttribute("messageDTO", messageDTO);
 
             RequestDispatcher requestDispatehcer = request.getRequestDispatcher("/messageRedirect");
@@ -153,7 +153,7 @@ public class UserController {
         // 사용자 정보 가져오는 거 실패했을 때 예외처리
         if (!"00".equals(naverUserResDTO.getResultCode())) {
             log.info("[네이버 사용자 로그인] 사용자 정보를 가져오는 데 실패했습니다. meessage : " + naverUserResDTO.getMessage());
-            response.sendRedirect("/main");
+            response.sendRedirect("/");
             return;
         }
 
@@ -162,7 +162,7 @@ public class UserController {
         if (userDTO != null) {
             log.info("[네이버 사용자 로그인] name : " + userDTO.getName() + ", emailId : " + userDTO.getEmailId());
             loginService.login(session, userDTO);
-            response.sendRedirect("/main");
+            response.sendRedirect("/");
             return;
         }
 
@@ -170,7 +170,7 @@ public class UserController {
         UserDTO addNaverUser = userService.addNaverUser(naverUserResDTO.getNaverUser());
         loginService.login(session, addNaverUser);
         log.info("[네이버 사용자 추가] name : " + addNaverUser.getName() + ", emailId : " + addNaverUser.getEmailId());
-        response.sendRedirect("/main");
+        response.sendRedirect("/");
     }
 
     @GetMapping("/myPage/{uid}")
@@ -181,7 +181,7 @@ public class UserController {
         if (userDTO == null) {
             MessageDTO messageDTO = new MessageDTO();
             messageDTO.setMessage("조회할 수 없는 사용자입니다.");
-            messageDTO.setRedirectUri("/main");
+            messageDTO.setRedirectUri("/");
             request.setAttribute("messageDTO", messageDTO);
 
             RequestDispatcher requestDispatehcer = request.getRequestDispatcher("/messageRedirect");
@@ -193,7 +193,7 @@ public class UserController {
         if (userDTO.getUid() != loginUser.getUid()) {
             MessageDTO messageDTO = new MessageDTO();
             messageDTO.setMessage("비정상적인 접근입니다.");
-            messageDTO.setRedirectUri("/main");
+            messageDTO.setRedirectUri("/");
             request.setAttribute("messageDTO", messageDTO);
 
             RequestDispatcher requestDispatehcer = request.getRequestDispatcher("/messageRedirect");

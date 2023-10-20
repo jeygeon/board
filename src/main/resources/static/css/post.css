@@ -1,0 +1,63 @@
+body, html {
+    height: 100%;
+}
+
+.post-section {
+    height: 100%;
+    margin-top: 10vh;
+    padding-left: 300px;
+    padding-right: 300px;
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.subject-section {
+    height: 50px;
+    border-bottom: 1px solid #bcb0f4;
+    margin-bottom: 30px;
+}
+
+.post-subject {
+    width: 100%;
+    height: 100%;
+    border: none;
+    padding: 0px 10px;
+    font-size: 25px;
+}
+
+.post-subject:focus {
+    outline: none;
+}
+
+.content-section {
+    margin-bottom: 10px;
+}
+
+
+.btn-section {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.post-tempSave-btn,
+.post-save-btn {
+    width: 100px;
+    height: 40px;
+    border: none;
+    border-radius: 7px;
+    background-color: white;
+}
+
+.post-tempSave-btn {
+    margin-right: 10px;
+    border: 1px solid #bcb0f4;
+    color: #bcb0f4;
+    font-weight: 700;
+}
+
+.post-save-btn {
+    background-color: #bcb0f4;
+    color: #fff;
+    font-weight: 700;
+}
