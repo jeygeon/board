@@ -18,7 +18,7 @@ public class CommonController {
 
     private final Logger log = LoggerFactory.getLogger(CommonController.class);
 
-    @GetMapping({"/", "/main"})
+    @GetMapping({"/", "/index"})
     public String index(HttpSession session, Model model) {
 
         UserDTO userDTO = (UserDTO) session.getAttribute("loginUser");
@@ -47,7 +47,7 @@ public class CommonController {
             log.info("사용자 로그아웃 > name : " + user.getName() + ", id : " + user.getId());
             session.invalidate();
         }
-        return "redirect:/main";
+        return "redirect:/index";
     }
 
     @GetMapping("/messageRedirect")

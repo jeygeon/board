@@ -10,7 +10,9 @@
 </head>
 <body>
     <nav class="top-bar" th:fragment="topNavFragment">
-        <span class="title">TripTo</span>
+        <span class="title">
+            <a href="/">TripTo</a>
+        </span>
         <span class="search-section">
                 <input type="text" class="search-bar" value="" placeholder="Search">
             </span>
@@ -24,6 +26,7 @@
                 <li class="top-menu">
                     <a href="/join">Sign up</a>
                 </li>
+                <input type="hidden" id="loginUser-uid" value="-1">
             </th:block>
             <th:block th:unless="${session.loginUser == null}">
                 <li class="top-menu" th:text="${session.loginUser.nickName} + '님 반갑습니다.'" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"></li>
@@ -36,6 +39,7 @@
                         <li><a class="dropdown-item" href="/logout">Logout</a></li>
                     </ul>
                 </div>
+                <input type="hidden" id="loginUser-uid" th:value="${session.loginUser.uid}">
             </th:block>
         </ul>
     </nav>
