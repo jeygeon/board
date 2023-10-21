@@ -10,3 +10,34 @@ $(document).ready(function() {
 
     });
 });
+
+function savePost() {
+    var _subject = $('.post-subject').val(),
+        _content = $('.post-content').val(),
+        param = null;
+
+    if (_subject == '') {
+        alert('제목을 입력해주세요.');
+        return false;
+    }
+
+    if (_content == '') {
+        alert('내용을 입력해주세요.');
+        return false;
+    }
+
+    param = {
+        subject : _subject,
+        content: _content
+    }
+
+    $.ajax({
+        url: '/board/save',
+        type: 'POST',
+        data: param,
+        dataType: 'json',
+        success:function(data) {
+            alert(data.message);
+        }
+    })
+}

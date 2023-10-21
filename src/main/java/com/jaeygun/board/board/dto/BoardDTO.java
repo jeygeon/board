@@ -1,0 +1,39 @@
+package com.jaeygun.board.board.dto;
+
+import com.jaeygun.board.board.entity.Board;
+import lombok.*;
+
+@Getter
+@Setter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class BoardDTO {
+
+    private long boardUid;
+
+    private long uid;
+
+    private String subject;
+
+    private String content;
+
+    private long hit;
+
+    private long postRegTime;
+
+    private long lastPostUpdated;
+
+    public Board toEntity() {
+        return Board.builder()
+                .boardUid(this.boardUid)
+                .uid(this.uid)
+                .subject(this.subject)
+                .content(this.content)
+                .hit(this.hit)
+                .postRegTime(this.postRegTime)
+                .lastPostUpdated(this.lastPostUpdated)
+                .build();
+    }
+}
