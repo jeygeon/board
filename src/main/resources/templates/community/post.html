@@ -36,16 +36,23 @@
 <body>
     <!-- 상단 nav -->
     <nav th:replace="common/topNav.html :: topNavFragment"></nav>
+
     <div class="post-section">
-        <div class="subject-section">
-            <input type="text" class="post-subject" value="" placeholder="제목">
+        <p class="subject-section" th:text="${board.subject}"></p>
+        <div class="userInfo-section">
+            <div>
+                <p>jaeygun</p>
+                <p th:text="${board.postRegTime}"></p>
+            </div>
+            <div>
+                <p th:text="'조회수 : ' + ${board.hit} + ' / 좋아요 : ' + ${board.hit}"></p>
+            </div>
         </div>
         <div class="content-section">
-            <textarea class="post-content" placeholder="내용" id="summernote" name="editordata"></textarea>
+            <p th:text="${board.content}"></p>
         </div>
-        <div class="btn-section">
-            <input type="button" value="임시저장" class="post-tempSave-btn" onclick="javascript: tempSavePost();">
-            <input type="button" value="저장" class="post-save-btn" onclick="javascript: savePost();">
+        <div class="etc-section">
+
         </div>
     </div>
 </body>

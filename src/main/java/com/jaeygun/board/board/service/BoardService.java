@@ -13,4 +13,12 @@ public interface BoardService {
      * @return
      */
     BoardDTO addPost(UserDTO userDTO, BoardDTO boardDTO);
+
+    /**
+     * 게시글 조회
+     *
+     * @param boardUid
+     * @return
+     */
+    BoardDTO findPostByBoardUid(long boardUid);
 }

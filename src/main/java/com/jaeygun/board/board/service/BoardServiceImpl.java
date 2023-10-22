@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService{
 
@@ -22,5 +23,12 @@ public class BoardServiceImpl implements BoardService{
         boardDTO.setLastPostUpdated(TimeUtil.currentTime());
         Board board = boardRepository.save(boardDTO.toEntity());
         return board.toDTO();
+    }
+
+    @Override
+    public BoardDTO findPostByBoardUid(long boardUid) {
+
+        Board board = boardRepository.getBoardByBoardUid(boardUid);
+        return board == null ? null : board.toDTO();
     }
 }

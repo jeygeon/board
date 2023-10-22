@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -50,7 +52,7 @@ public class CommonController {
         return "redirect:/index";
     }
 
-    @GetMapping("/messageRedirect")
+    @RequestMapping(value="/messageRedirect", method = {RequestMethod.GET, RequestMethod.POST})
     public String messageRedirect(HttpServletRequest request, Model model) {
 
         MessageDTO messageDTO = (MessageDTO) request.getAttribute("messageDTO");

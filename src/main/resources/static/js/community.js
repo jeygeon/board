@@ -31,7 +31,10 @@ function savePost() {
         content: _content
     }
 
-    $.ajax({
+    $('#post-form').submit();
+    return false;
+
+/*    $.ajax({
         url: '/board/save',
         type: 'POST',
         data: param,
@@ -39,5 +42,5 @@ function savePost() {
         success:function(data) {
             alert(data.message);
         }
-    })
+    })*/
 }
