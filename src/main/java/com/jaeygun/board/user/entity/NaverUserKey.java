@@ -17,7 +17,7 @@ public class NaverUserKey {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long nUid;
 
-    private long uid;
+    private long userUid;
 
     private String nKey;
 }

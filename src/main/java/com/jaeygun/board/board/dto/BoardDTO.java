@@ -13,7 +13,7 @@ public class BoardDTO {
 
     private long boardUid;
 
-    private long uid;
+    private long userUid;
 
     private String subject;
 
@@ -28,7 +28,7 @@ public class BoardDTO {
     public Board toEntity() {
         return Board.builder()
                 .boardUid(this.boardUid)
-                .uid(this.uid)
+                .userUid(this.userUid)
                 .subject(this.subject)
                 .content(this.content)
                 .hit(this.hit)

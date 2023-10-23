@@ -18,7 +18,7 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long boardUid;
 
-    private long uid;
+    private long userUid;
 
     private String subject;
 
@@ -33,7 +33,7 @@ public class Board {
     public BoardDTO toDTO() {
         return BoardDTO.builder()
                 .boardUid(this.boardUid)
-                .uid(this.uid)
+                .userUid(this.userUid)
                 .subject(this.subject)
                 .content(this.content)
                 .hit(this.hit)

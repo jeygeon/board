@@ -53,7 +53,7 @@ public interface UserService {
      * @param uid
      * @return
      */
-    UserDTO getUserByUid(long uid);
+    UserDTO getUserByUserUid(long uid);
 
     /**
      * 네이버 로그인

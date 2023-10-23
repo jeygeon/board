@@ -13,14 +13,14 @@ public class NaverUserKeyDTO {
 
     private long nUid;
 
-    private long uid;
+    private long userUid;
 
     private String nKey;
 
     public NaverUserKey toEntity() {
         return NaverUserKey.builder()
                 .nUid(this.nUid)
-                .uid(this.uid)
+                .userUid(this.userUid)
                 .nKey(this.nKey)
                 .build();
     }

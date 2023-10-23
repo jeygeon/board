@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService{
         User user = userRepository.save(userDTO.toEntity());
 
         NaverUserKeyDTO userKeyDTO = new NaverUserKeyDTO();
-        userKeyDTO.setUid(user.toDTO().getUid());
+        userKeyDTO.setUserUid(user.toDTO().getUserUid());
         userKeyDTO.setNKey(naverUserDTO.getId());
         naverUserKeyRepository.save(userKeyDTO.toEntity());
 
@@ -93,9 +93,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserDTO getUserByUid(long uid) {
+    public UserDTO getUserByUserUid(long uid) {
 
-        User user = userRepository.findUserByUid(uid);
+        User user = userRepository.findUserByUserUid(uid);
         if (user == null) {
             return null;
         }
@@ -111,7 +111,7 @@ public class UserServiceImpl implements UserService{
         NaverUserKey existKey = naverUserKeyRepository.findUserKeyBynKey(key);
 
         if (existKey != null) {
-            User user = userRepository.findUserByUid(existKey.getUid());
+            User user = userRepository.findUserByUserUid(existKey.getUserUid());
             return user.toDTO();
         }
 

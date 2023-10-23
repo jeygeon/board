@@ -18,7 +18,7 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public BoardDTO addPost(UserDTO userDTO, BoardDTO boardDTO) {
 
-        boardDTO.setUid(userDTO.getUid());
+        boardDTO.setUserUid(userDTO.getUserUid());
         boardDTO.setPostRegTime(TimeUtil.currentTime());
         boardDTO.setLastPostUpdated(TimeUtil.currentTime());
         Board board = boardRepository.save(boardDTO.toEntity());

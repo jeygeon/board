@@ -31,7 +31,7 @@ public class User {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long uid;
+    private long userUid;
 
     private String name;
 
@@ -57,7 +57,7 @@ public class User {
 
     public UserDTO toDTO() {
         return UserDTO.builder()
-                .uid(this.uid)
+                .userUid(this.userUid)
                 .name(this.name)
                 .nickName(this.nickName)
                 .id(this.id)

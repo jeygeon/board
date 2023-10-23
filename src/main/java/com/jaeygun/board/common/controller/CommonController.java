@@ -49,7 +49,7 @@ public class CommonController {
             log.info("사용자 로그아웃 > name : " + user.getName() + ", id : " + user.getId());
             session.invalidate();
         }
-        return "redirect:/index";
+        return "redirect:/";
     }
 
     @RequestMapping(value="/messageRedirect", method = {RequestMethod.GET, RequestMethod.POST})

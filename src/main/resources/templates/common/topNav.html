@@ -32,14 +32,14 @@
                 <li class="top-menu" th:text="${session.loginUser.nickName} + '님 반갑습니다.'" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"></li>
                 <div class="dropdown">
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{/user/myPage/{uid}(uid = ${session.loginUser.uid})}" >MyPage</a></li>
+                        <li><a class="dropdown-item" th:href="@{/user/myPage/{userUid}(userUid = ${session.loginUser.userUid})}" >MyPage</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/logout">Logout</a></li>
                     </ul>
                 </div>
-                <input type="hidden" id="loginUser-uid" th:value="${session.loginUser.uid}">
+                <input type="hidden" id="loginUser-uid" th:value="${session.loginUser.userUid}">
             </th:block>
         </ul>
     </nav>

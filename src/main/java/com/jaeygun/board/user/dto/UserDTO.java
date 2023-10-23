@@ -11,7 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 public class UserDTO {
 
-    private long uid;
+    private long userUid;
 
     private String name;
 
@@ -37,7 +37,7 @@ public class UserDTO {
 
     public User toEntity() {
         return User.builder()
-                .uid(this.uid)
+                .userUid(this.userUid)
                 .name(this.name)
                 .nickName(this.nickName)
                 .id(this.id)
