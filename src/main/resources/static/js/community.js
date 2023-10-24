@@ -33,14 +33,4 @@ function savePost() {
 
     $('#post-form').submit();
     return false;
-
-/*    $.ajax({
-        url: '/board/save',
-        type: 'POST',
-        data: param,
-        dataType: 'json',
-        success:function(data) {
-            alert(data.message);
-        }
-    })*/
 }
