@@ -31,8 +31,8 @@ login:
   naver:
     baseUrl: https://nid.naver.com/oauth2.0
     clientId: nmgPfT3ppaV7bwUMxadS
-    # redirectUrl: http://192.168.35.11:8088/user/oauth/naver-callback
-    redirectUrl: http://localhost:8088/user/oauth/naver-callback
+    # redirectUrl: http://192.168.35.11:8088/api/user/oauth/naver-callback
+    redirectUrl: http://localhost:8088/api/user/oauth/naver-callback
     clientSecret: Tz1ixlcGyc
 
 

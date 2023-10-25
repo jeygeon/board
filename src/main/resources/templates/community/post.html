@@ -38,21 +38,37 @@
     <nav th:replace="common/topNav.html :: topNavFragment"></nav>
 
     <div class="post-section">
-        <p class="subject-section" th:text="${board.subject}"></p>
-        <div class="userInfo-section">
-            <div>
-                <p>jaeygun</p>
-                <p th:text="${board.postRegTime}"></p>
-            </div>
-            <div>
-                <p th:text="'조회수 : ' + ${board.hit} + ' / 좋아요 : ' + ${board.hit}"></p>
+        <div class="postInfo-section">
+            <p class="post-subject" th:text="${board.subject}"></p>
+            <div class="post-info">
+                <div style="display: flex; align-items: center">
+                    <div style="margin-right: 15px;">jaeygun</div>
+                    <div>
+                        <input type="button" class="post-follow-btn" value="팔로우">
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center">
+                    <div style="margin-right: 30px;">
+                        <i class="fa-solid fa-eye" style="color: #69586b;"></i>
+                        <span th:text="${board.hit}"></span>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-heart" style="color: #e67180;"></i>
+                        <span th:text="${board.hit}"></span>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="content-section">
-            <p th:text="${board.content}"></p>
-        </div>
-        <div class="etc-section">
-
+        <div class="postContent-section">
+            <textarea style="width: 100%" th:text="${board.content}"></textarea>
+            <div class="postBottom-section" style="display: flex; justify-content: flex-end; width: 100%;">
+                <div class="post-like-btn" style="margin-right: 20px;">
+                    <i class="fa-regular fa-heart fa-2xl"></i>
+                </div>
+                <div class="post-sub-btn" style="margin-right: 10px;">
+                    <i class="fa-regular fa-bookmark fa-2xl"></i>
+                </div>
+            </div>
         </div>
     </div>
 </body>

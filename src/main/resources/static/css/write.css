@@ -4,10 +4,9 @@ body, html {
 
 .post-section {
     height: 100%;
-    margin-top: 10vh;
     padding-left: 300px;
     padding-right: 300px;
-    padding-top: 100px;
+    padding-top: 50px;
     display: flex;
     flex-direction: column;
 }

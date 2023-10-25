@@ -3,28 +3,75 @@ html, body {
 }
 
 .post-section {
-    border: 1px solid black;
     height: 100%;
-    margin-top: 10vh;
+    margin-top: 40px;
     padding: 0px 350px;
 }
 
-.subject-section {
-    border: 1px solid black;
-    margin-top: 50px;
-    height: 50px;
-    line-height: 50px;
-    font-size: 30px;
-
+.postInfo-section {
+    padding: 0px 10px 20px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #bcb0f4;
 }
 
-.userInfo-section {
-    margin-top: 20px;
-    border: 1px solid black;
+.post-subject {
+    font-size: 34px;
+    margin-bottom: 15px;
+}
+
+.post-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.post-follow-btn {
+    border: none;
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #bcb0f4;
+    color: #fff;
+}
+
+.postContent-section {
+    width: 100%;
+    border-bottom: 1px solid #bcb0f4;
+}
+
+.postBottom-section {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
     height: 100px;
+    align-items: center;
 }
 
-.content-section {
-    margin-top: 30px;
-    border: 1px solid black;
+.post-like-btn,
+.post-sub-btn {
+    border: 1px solid #e0ddef;
+    width: 55px;
+    height: 55px;
+    line-height: 55px;
+    text-align: center;
+    border-radius: 100px;
+    color: #bcb0f4;
+    box-shadow: 0px 0px 5px 0px;
+}
+
+.post-like-btn,
+.post-sub-btn {
+    border: 1px solid #e0ddef;
+    width: 55px;
+    height: 55px;
+    line-height: 55px;
+    text-align: center;
+    border-radius: 100px;
+    color: #bcb0f4;
+    box-shadow: 0px 0px 4px 0px;
+}
+
+.post-like-btn:hover,
+.post-sub-btn:hover {
+    cursor: pointer;
 }
