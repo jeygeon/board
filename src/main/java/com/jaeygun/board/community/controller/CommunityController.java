@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,6 +29,9 @@ public class CommunityController {
 
         UserDTO user = (UserDTO) session.getAttribute("loginUser");
         model.addAttribute("user", user);
+
+        List<BoardDTO> boardList = boardService.getRecentBoardList(4);
+        model.addAttribute("boardList", boardList);
         return "community/main";
     }
 

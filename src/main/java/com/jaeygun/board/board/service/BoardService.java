@@ -3,6 +3,8 @@ package com.jaeygun.board.board.service;
 import com.jaeygun.board.board.dto.BoardDTO;
 import com.jaeygun.board.user.dto.UserDTO;
 
+import java.util.List;
+
 public interface BoardService {
 
     /**
@@ -21,4 +23,12 @@ public interface BoardService {
      * @return
      */
     BoardDTO findPostByBoardUid(long boardUid);
+
+    /**
+     * 모든 게시글 반환
+     *
+     * @param count
+     * @return
+     */
+    List<BoardDTO> getRecentBoardList(int count);
 }

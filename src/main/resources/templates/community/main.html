@@ -101,42 +101,19 @@
     <div class="user-post-section">
         <p class="community-comment">이용자들의 생생한 여행 후기에요 😀</p>
         <div style="display: flex; height: 95%;">
-            <div class="user-post">
-                <div class="post-Thumbnail-box">
-                    <img src="/image/canal-6519196_1280.jpg" class="post-Thumbnail">
-                </div>
-                <div class="post-preInfo">
-                    <p>제목제목제목제목제목제목제목제목제목</p>
-                    <p>jaeygun</p>
-                </div>
-            </div>
-            <div class="user-post">
-                <div class="post-Thumbnail-box">
-                    <img src="/image/charles-bridge-5818730_1920.jpg" class="post-Thumbnail">
-                </div>
-                <div class="post-preInfo">
-                    <p>제목제목제목제목제목제목제목제목제목</p>
-                    <p>jaeygun</p>
-                </div>
-            </div>
-            <div class="user-post">
-                <div class="post-Thumbnail-box">
-                    <img src="/image/europe-7128531_1920.jpg" class="post-Thumbnail">
-                </div>
-                <div class="post-preInfo">
-                    <p>제목제목제목제목제목제목제목제목제목</p>
-                    <p>jaeygun</p>
-                </div>
-            </div>
-            <div class="user-post">
-                <div class="post-Thumbnail-box">
-                    <img src="/image/hungarian-parliament-building-6933621_1920.jpg" class="post-Thumbnail">
-                </div>
-                <div class="post-preInfo">
-                    <p>제목제목제목제목제목제목제목제목제목</p>
-                    <p>jaeygun</p>
-                </div>
-            </div>
+            <th:block th:each="board : ${boardList}">
+                <a th:href="@{'/community/post/' + ${board.boardUid}}">
+                    <div class="user-post">
+                        <div class="post-Thumbnail-box">
+                            <img src="/image/canal-6519196_1280.jpg" class="post-Thumbnail">
+                        </div>
+                        <div class="post-preInfo">
+                            <p th:text="${board.subject}"></p>
+                            <p>jaeygun</p>
+                        </div>
+                    </div>
+                </a>
+            </th:block>
         </div>
     </div>
 </body>
