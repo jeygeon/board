@@ -3,9 +3,8 @@ body, html {
 }
 
 .post-section {
-    height: 100%;
-    padding-left: 300px;
-    padding-right: 300px;
+    padding-left: 350px;
+    padding-right: 350px;
     padding-top: 50px;
     display: flex;
     flex-direction: column;
@@ -33,6 +32,13 @@ body, html {
     margin-bottom: 10px;
 }
 
+.post-content {
+    width: 100%;
+    height: 350px;
+    padding: 10px;
+    margin-bottom: 20px;
+    resize: none;
+}
 
 .btn-section {
     display: flex;

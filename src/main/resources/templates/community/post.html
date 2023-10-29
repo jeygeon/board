@@ -36,7 +36,6 @@
 <body>
     <!-- 상단 nav -->
     <nav th:replace="common/topNav.html :: topNavFragment"></nav>
-
     <div class="post-section">
         <div class="postInfo-section">
             <p class="post-subject" th:text="${board.subject}"></p>
@@ -67,6 +66,87 @@
                 </div>
                 <div class="post-sub-btn" style="margin-right: 10px;">
                     <i class="fa-regular fa-bookmark fa-2xl"></i>
+                </div>
+            </div>
+        </div>
+        <div class="postReply-section" style="margin-top: 15px; padding: 0px 10px;">
+            <div style="margin-bottom: 15px;">
+                <span>댓글</span>
+                <span style="margin-left: 5px;">143</span>
+            </div>
+            <div class="myReply-section">
+                <div class="profile-box">
+                    <img class="profile" src="/image/canal-6519196_1280.jpg">
+                </div>
+                <input type="text" value="" placeholder="댓글을 입력하세요." class="my-reply">
+            </div>
+            <div class="reply-section">
+                <div class="profile-box">
+                    <img class="profile" src="/image/canal-6519196_1280.jpg">
+                </div>
+                <div style="width: 695px;">
+                    <div style="margin-bottom: 7px;">
+                        <span>jaeygun</span>
+                        <span class="reply-split">*</span>
+                        <span>2시간전</span>
+                    </div>
+                    <p style="margin-bottom: 7px;">우와 이쁘다~</p>
+                    <div>
+                        <span><i class="fa-solid fa-heart" style="color: #e67180;"></i></span>
+                        <span>156</span>
+                        <span class="reply-split">*</span>
+                        <span>답글달기</span>
+                        <span class="reply-split">*</span>
+                        <span>신고</span>
+                    </div>
+                </div>
+            </div>
+            <div style="padding-left: 50px;">
+                <div class="profile-box">
+                    <img class="profile" src="/image/canal-6519196_1280.jpg">
+                </div>
+                <input type="text" value="" placeholder="댓글을 입력하세요.">
+            </div>
+            <div class="reply-section">
+                <div class="profile-box">
+                    <img class="profile" src="/image/canal-6519196_1280.jpg">
+                </div>
+                <div style="width: 695px;">
+                    <div style="margin-bottom: 7px;">
+                        <span>jaeygun</span>
+                        <span class="reply-split">*</span>
+                        <span>2시간전</span>
+                    </div>
+                    <p style="margin-bottom: 7px;">우와 이쁘다~</p>
+                    <div>
+                        <span><i class="fa-solid fa-heart" style="color: #e67180;"></i></span>
+                        <span>156</span>
+                        <span class="reply-split">*</span>
+                        <span>답글달기</span>
+                        <span class="reply-split">*</span>
+                        <span>신고</span>
+                    </div>
+                </div>
+            </div>
+            <div class="reply-section">
+                <div class="profile-box">
+                    <img class="profile" src="/image/canal-6519196_1280.jpg">
+                </div>
+                <div style="width: 695px;">
+                    <div style="margin-bottom: 7px;">
+                        <span>jaeygun</span>
+                        <span class="reply-split">*</span>
+                        <span>2시간전</span>
+                    </div>
+                    <p style="margin-bottom: 7px;">우와 이쁘다~</p>
+                    <div>
+                        <span><i class="fa-solid fa-heart" style="color: #e67180;"></i></span>
+                        <span>156</span>
+                        <span class="reply-split">*</span>
+                        <span>답글달기</span>
+                        <span class="reply-split">*</span>
+                        <span>신고</span>
+                    </div>
                 </div>
             </div>
         </div>
