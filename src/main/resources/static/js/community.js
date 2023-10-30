@@ -26,11 +26,44 @@ function savePost() {
         return false;
     }
 
-    param = {
-        subject : _subject,
-        content: _content
-    }
-
     $('#post-form').submit();
+    return false;
+}
+
+function replySave(event) {
+
+    var _boardUid = $('#boardUid').val(),
+        _userUid = $('#loginUser-uid').val(),
+        _content = $('#myReply').val(),
+        param = null;
+
+    if (event.keyCode == 13) {
+
+        if (_content == '') {
+            alert('댓글을 입력해주세요.')
+            $('#myReply').focus();
+            return false;
+        }
+
+        param = {
+            boardUid : _boardUid,
+            userUid : _userUid,
+            content : _content
+        }
+
+        $.ajax({
+            url: '/api/board/reply/add',
+            type: 'POST',
+            data: param,
+            dataType: 'json',
+            success:function(data) {
+                if (!data.result) {
+                    alert(data.message);
+                    return false;
+                }
+                alert('성공');
+            }
+        })
+    }
     return false;
 }

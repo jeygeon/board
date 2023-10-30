@@ -2,9 +2,13 @@ package com.jaeygun.board.board.controller;
 
 
 import com.jaeygun.board.board.dto.BoardDTO;
+import com.jaeygun.board.board.dto.ReplyDTO;
 import com.jaeygun.board.board.service.BoardService;
+import com.jaeygun.board.board.service.ReplyService;
 import com.jaeygun.board.common.dto.MessageDTO;
 import com.jaeygun.board.user.dto.UserDTO;
+import com.jaeygun.board.util.ClientUtil;
+import com.jaeygun.board.util.JsonUtil;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,6 +33,8 @@ public class BoardController {
     private final Logger log = LoggerFactory.getLogger(BoardController.class);
 
     private final BoardService boardService;
+
+    private final ReplyService replyService;
 
     @PostMapping("/save")
     public void save(HttpServletRequest request, HttpServletResponse response, HttpSession session, BoardDTO boardDTO) throws ServletException, IOException {
@@ -53,5 +61,25 @@ public class BoardController {
 
         RequestDispatcher requestDispatehcer = request.getRequestDispatcher("/messageRedirect");
         requestDispatehcer.forward(request, response);
+    }
+
+    @PostMapping("/reply/add")
+    public Map<String, Object> replySave(HttpSession session, ReplyDTO replyDTO) {
+
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        resultMap.put(JsonUtil.RESULT, JsonUtil.FAILURE);
+
+        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+
+        replyDTO = replyService.addReply(replyDTO);
+        if (replyDTO != null) {
+            log.info("[user : " + loginUser.getName() + "] 댓글 입력 > boardUid : " + replyDTO.getBoardUid() + " > reply : " + replyDTO.getContent());
+            resultMap.put("reply", replyDTO);
+            resultMap.put(JsonUtil.RESULT, JsonUtil.SUCCESS);
+        } else {
+            resultMap.put(ClientUtil.MESSAGE, "댓글 입력이 실패했습니다.\n잠시 후 다시 시도해주세요.");
+        }
+
+        return resultMap;
     }
 }
