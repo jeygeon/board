@@ -5,7 +5,11 @@ import com.jaeygun.board.board.entity.Reply;
 import com.jaeygun.board.board.respository.ReplyRepository;
 import com.jaeygun.board.util.TimeUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,5 +23,21 @@ public class ReplyServiceImpl implements ReplyService{
         replyDTO.setCreatedTime(TimeUtil.currentTime());
         Reply reply = replyRepository.save(replyDTO.toEntity());
         return reply == null ? null : reply.toDTO();
+    }
+
+    @Override
+    public List<ReplyDTO> getRecentReplyList(int boardUid, Pageable pageable) {
+
+        List<ReplyDTO> replyDTOList = new ArrayList<>();
+        List<Reply> replyList = replyRepository.findAll(pageable).getContent();
+
+        if (replyList.size() == 0) {
+            return null;
+        }
+
+        for (Reply reply : replyList) {
+            replyDTOList.add(reply.toDTO());
+        }
+        return replyDTOList;
     }
 }

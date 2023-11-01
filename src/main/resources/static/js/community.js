@@ -52,7 +52,7 @@ function replySave(event) {
         }
 
         $.ajax({
-            url: '/api/board/reply/add',
+            url: '/api/board/' + _boardUid + '/reply/add',
             type: 'POST',
             data: param,
             dataType: 'json',
@@ -61,7 +61,22 @@ function replySave(event) {
                     alert(data.message);
                     return false;
                 }
-                alert('성공');
+
+                var pagingParam = {
+                    start : 0,
+                    size : 5,
+                    boardUid : _boardUid
+                }
+
+                $.ajax({
+                    url: '/api/board/' + _boardUid + '/reply/paging',
+                    type: 'POST',
+                    data: pagingParam,
+                    dataType: 'json',
+                    success:function(data) {
+                        alert(data.replyList);
+                    }
+                })
             }
         })
     }

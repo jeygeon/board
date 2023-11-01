@@ -12,6 +12,10 @@ import com.jaeygun.board.util.JsonUtil;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -63,8 +68,8 @@ public class BoardController {
         requestDispatehcer.forward(request, response);
     }
 
-    @PostMapping("/reply/add")
-    public Map<String, Object> replySave(HttpSession session, ReplyDTO replyDTO) {
+    @PostMapping("/{boardUid}/reply/add")
+    public Map<String, Object> replySave(HttpSession session, ReplyDTO replyDTO, @PathVariable(value = "boardUid") String boardUid) {
 
         Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put(JsonUtil.RESULT, JsonUtil.FAILURE);
@@ -80,6 +85,25 @@ public class BoardController {
             resultMap.put(ClientUtil.MESSAGE, "댓글 입력이 실패했습니다.\n잠시 후 다시 시도해주세요.");
         }
 
+        return resultMap;
+    }
+
+    @PostMapping("/{boardUid}/reply/paging")
+    public Map<String, Object> replyPaging(@PathVariable(value="boardUid") int boardUid, int size, int start) {
+
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        resultMap.put(JsonUtil.RESULT, JsonUtil.FAILURE);
+
+        Sort sort = Sort.by(Sort.Direction.DESC, "createdTime");
+        Pageable pageable = PageRequest.of(start, size, sort);
+        List<ReplyDTO> replyDTOList = replyService.getRecentReplyList(boardUid, pageable);
+        if (replyDTOList.size() == 0) {
+            resultMap.put("replyList", "");
+            return resultMap;
+        }
+
+        resultMap.put("replyList", replyDTOList);
+        resultMap.put(JsonUtil.RESULT, JsonUtil.SUCCESS);
         return resultMap;
     }
 }
