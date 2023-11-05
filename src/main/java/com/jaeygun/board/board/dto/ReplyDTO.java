@@ -1,6 +1,7 @@
 package com.jaeygun.board.board.dto;
 
 import com.jaeygun.board.board.entity.Reply;
+import com.jaeygun.board.user.dto.UserDTO;
 import lombok.*;
 
 @Getter
@@ -17,7 +18,7 @@ public class ReplyDTO {
 
     private long boardUid;
 
-    private long userUid;
+    private UserDTO userDTO;
 
     private String content;
 
@@ -34,7 +35,7 @@ public class ReplyDTO {
                 .replyUid(this.replyUid)
                 .parentReplyUid(this.parentReplyUid)
                 .boardUid(this.boardUid)
-                .userUid(this.userUid)
+                .userUid(this.userDTO.getUserUid())
                 .content(this.content)
                 .likeCount(this.likeCount)
                 .isSecret(this.isSecret)

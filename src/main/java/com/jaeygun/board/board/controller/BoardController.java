@@ -75,6 +75,7 @@ public class BoardController {
         resultMap.put(JsonUtil.RESULT, JsonUtil.FAILURE);
 
         UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+        replyDTO.setUserDTO(loginUser);
 
         replyDTO = replyService.addReply(replyDTO);
         if (replyDTO != null) {

@@ -1,6 +1,7 @@
 package com.jaeygun.board.board.entity;
 
 import com.jaeygun.board.board.dto.ReplyDTO;
+import com.jaeygun.board.user.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,6 +25,10 @@ public class Reply {
 
     private long userUid;
 
+    @OneToOne
+    @JoinColumn(name = "userUid", insertable = false, updatable = false)
+    private User user;
+
     private String content;
 
     private int likeCount;
@@ -39,7 +44,7 @@ public class Reply {
                 .replyUid(this.replyUid)
                 .parentReplyUid(this.parentReplyUid)
                 .boardUid(this.boardUid)
-                .userUid(this.userUid)
+                .userDTO(this.user.toDTO())
                 .content(this.content)
                 .likeCount(this.likeCount)
                 .isSecret(this.isSecret)

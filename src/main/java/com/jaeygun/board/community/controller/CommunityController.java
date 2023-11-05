@@ -1,11 +1,16 @@
 package com.jaeygun.board.community.controller;
 
 import com.jaeygun.board.board.dto.BoardDTO;
+import com.jaeygun.board.board.dto.ReplyDTO;
 import com.jaeygun.board.board.service.BoardService;
+import com.jaeygun.board.board.service.ReplyService;
 import com.jaeygun.board.user.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +28,8 @@ public class CommunityController {
     private final Logger log = LoggerFactory.getLogger(CommunityController.class);
 
     private final BoardService boardService;
+
+    private final ReplyService replyService;
 
     @GetMapping("/main")
     public String index(HttpSession session, Model model) {
@@ -46,6 +53,11 @@ public class CommunityController {
 
         BoardDTO boardDTO = boardService.findPostByBoardUid(boardUid);
         model.addAttribute("board", boardDTO);
+
+        Sort sort = Sort.by(Sort.Direction.DESC, "createdTime");
+        Pageable pageable = PageRequest.of(0, 5, sort);
+        List<ReplyDTO> replyDTOList = replyService.getRecentReplyList(boardUid, pageable);
+        model.addAttribute("replyList", replyDTOList);
         return "community/post";
     }
 }

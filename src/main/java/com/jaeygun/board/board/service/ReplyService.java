@@ -21,5 +21,5 @@ public interface ReplyService {
      * @param boardUid
      * @return
      */
-    List<ReplyDTO> getRecentReplyList(int boardUid, Pageable pageable);
+    List<ReplyDTO> getRecentReplyList(long boardUid, Pageable pageable);
 }

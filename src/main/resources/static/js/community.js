@@ -74,7 +74,29 @@ function replySave(event) {
                     data: pagingParam,
                     dataType: 'json',
                     success:function(data) {
-                        alert(data.replyList);
+                        var replyForm = '';
+                        for (var i=0; i<data.replyList.length; i++) {
+                            replyForm += '<div class="reply-section">';
+                            replyForm += '<div class="profile-box">';
+                            replyForm += '<img class="profile" src="/image/canal-6519196_1280.jpg">';
+                            replyForm += '</div>';
+                            replyForm += '<div style="width: 695px;">';
+                            replyForm += '<div style="margin-bottom: 7px;">';
+                            replyForm += '<span>jaeygun</span>';
+                            replyForm += '<span class="reply-split">*</span>';
+                            replyForm += '<span>2시간전</span>';
+                            replyForm += '</div>';
+                            replyForm += '<p style="margin-bottom: 7px;">우와 이쁘다~</p>';
+                            replyForm += '<div>';
+                            replyForm += '<span><i class="fa-solid fa-heart" style="color: #e67180;"></i></span>';
+                            replyForm += '<span>156</span>';
+                            replyForm += '<span class="reply-split">*</span>';
+                            replyForm += '<span>답글달기</span>';
+                            replyForm += '<span class="reply-split">*</span>';
+                            replyForm += '<span>신고</span>';
+                            replyForm += '</div></div></div>';
+                        }
+                        $('#reply').html(replyForm);
                     }
                 })
             }

@@ -26,7 +26,7 @@ public class ReplyServiceImpl implements ReplyService{
     }
 
     @Override
-    public List<ReplyDTO> getRecentReplyList(int boardUid, Pageable pageable) {
+    public List<ReplyDTO> getRecentReplyList(long boardUid, Pageable pageable) {
 
         List<ReplyDTO> replyDTOList = new ArrayList<>();
         List<Reply> replyList = replyRepository.findAll(pageable).getContent();
