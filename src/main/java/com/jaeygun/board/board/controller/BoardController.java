@@ -102,8 +102,11 @@ public class BoardController {
             resultMap.put("replyList", "");
             return resultMap;
         }
-
         resultMap.put("replyList", replyDTOList);
+
+        int totalCount = replyService.getReplyTotalCount(boardUid);
+        resultMap.put("totalCount", totalCount);
+
         resultMap.put(JsonUtil.RESULT, JsonUtil.SUCCESS);
         return resultMap;
     }

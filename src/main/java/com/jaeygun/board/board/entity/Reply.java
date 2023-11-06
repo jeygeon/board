@@ -23,10 +23,8 @@ public class Reply {
 
     private long boardUid;
 
-    private long userUid;
-
     @OneToOne
-    @JoinColumn(name = "userUid", insertable = false, updatable = false)
+    @JoinColumn(name = "userUid")
     private User user;
 
     private String content;

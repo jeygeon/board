@@ -40,4 +40,10 @@ public class ReplyServiceImpl implements ReplyService{
         }
         return replyDTOList;
     }
+
+    @Override
+    public int getReplyTotalCount(long boardUid) {
+
+        return replyRepository.countByBoardUid(boardUid);
+    }
 }

@@ -73,7 +73,7 @@
         <div class="postReply-section" style="margin-top: 15px; padding: 0px 10px;">
             <div style="margin-bottom: 15px;">
                 <span>댓글</span>
-                <span style="margin-left: 5px;">143</span>
+                <span style="margin-left: 5px;" id="reply-totalCount" th:text="${totalCount}"></span>
             </div>
             <div class="myReply-section">
                 <div class="profile-box">
@@ -89,7 +89,7 @@
                         </div>
                         <div style="width: 695px;">
                             <div style="margin-bottom: 7px;">
-                                <span th:text="${reply.userDTO.name}"></span>
+                                <span th:text="${reply.userDTO.nickName}"></span>
                                 <span class="reply-split">*</span>
                                 <span th:text="${reply.createdTime}"></span>
                             </div>

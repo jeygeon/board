@@ -35,7 +35,7 @@ public class ReplyDTO {
                 .replyUid(this.replyUid)
                 .parentReplyUid(this.parentReplyUid)
                 .boardUid(this.boardUid)
-                .userUid(this.userDTO.getUserUid())
+                .user(this.userDTO.toEntity())
                 .content(this.content)
                 .likeCount(this.likeCount)
                 .isSecret(this.isSecret)

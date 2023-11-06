@@ -22,4 +22,12 @@ public interface ReplyService {
      * @return
      */
     List<ReplyDTO> getRecentReplyList(long boardUid, Pageable pageable);
+
+    /**
+     * 총 댓글 갯수 Count
+     *
+     * @param boardUid
+     * @return
+     */
+    int getReplyTotalCount(long boardUid);
 }

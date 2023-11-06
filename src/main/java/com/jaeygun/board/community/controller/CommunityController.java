@@ -58,6 +58,10 @@ public class CommunityController {
         Pageable pageable = PageRequest.of(0, 5, sort);
         List<ReplyDTO> replyDTOList = replyService.getRecentReplyList(boardUid, pageable);
         model.addAttribute("replyList", replyDTOList);
+
+        int totalCount = replyService.getReplyTotalCount(boardUid);
+        model.addAttribute("totalCount", totalCount);
+
         return "community/post";
     }
 }
