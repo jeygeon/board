@@ -4,6 +4,7 @@ import com.jaeygun.board.board.dto.BoardDTO;
 import com.jaeygun.board.board.dto.ReplyDTO;
 import com.jaeygun.board.board.service.BoardService;
 import com.jaeygun.board.board.service.ReplyService;
+import com.jaeygun.board.common.dto.PaginationDTO;
 import com.jaeygun.board.user.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -54,13 +55,16 @@ public class CommunityController {
         BoardDTO boardDTO = boardService.findPostByBoardUid(boardUid);
         model.addAttribute("board", boardDTO);
 
+        int totalCount = replyService.getReplyTotalCount(boardUid);
+        model.addAttribute("totalCount", totalCount);
+
+        PaginationDTO paginationDTO = new PaginationDTO(totalCount, 1, 5, 5);
+        model.addAttribute("pagination", paginationDTO);
+
         Sort sort = Sort.by(Sort.Direction.DESC, "createdTime");
         Pageable pageable = PageRequest.of(0, 5, sort);
         List<ReplyDTO> replyDTOList = replyService.getRecentReplyList(boardUid, pageable);
         model.addAttribute("replyList", replyDTOList);
-
-        int totalCount = replyService.getReplyTotalCount(boardUid);
-        model.addAttribute("totalCount", totalCount);
 
         return "community/post";
     }

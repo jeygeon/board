@@ -106,6 +106,19 @@
                     </div>
                 </th:block>
             </div>
+            <div class="reply-paging">
+                <button class="page-btn" th:value="${pagination.prevBlock}"><</button>
+                <th:block th:with="start=${pagination.startPage}, end=${pagination.endPage}">
+                    <button th:with="start=${pagination.startPage}, end=${pagination.endPage}"
+                        th:each="pageButton : ${#numbers.sequence(start, end)}"
+                        th:text="${pageButton}"
+                        th:value="${pageButton}"
+                        id="page"
+                        class="page-btn">
+                    </button>
+                </th:block>
+                <button class="page-btn" th:value="${pagination.nextBlock}">></button>
+            </div>
         </div>
     </div>
 </body>

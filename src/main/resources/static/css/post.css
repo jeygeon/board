@@ -120,3 +120,17 @@ html, body {
     align-items: flex-start;
     display: flex;
 }
+
+.reply-paging {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.page-btn {
+    border: none;
+    background-color: #ffffff;
+    margin: 0px 10px;
+    padding: 0;
+}
