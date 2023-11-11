@@ -9,6 +9,54 @@ $(document).ready(function() {
         placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
 
     });
+
+    $('.page-btn').click(function(data) {
+
+        var _page = data.currentTarget.value,
+            _boardUid = $('#boardUid').val(),
+            _start = _page - 1,
+            pagingParam = null;
+
+        pagingParam = {
+            start : _start,
+            size : 5,
+            boardUid : _boardUid
+        }
+
+        $.ajax({
+            url: '/api/board/' + _boardUid + '/reply/paging',
+            type: 'POST',
+            data: pagingParam,
+            dataType: 'json',
+            success:function(data) {
+                var replyForm = '';
+                for (var i=0; i<data.replyList.length; i++) {
+                    replyForm += '<div class="reply-section">';
+                    replyForm += '<div class="profile-box">';
+                    replyForm += '<img class="profile" src="/image/canal-6519196_1280.jpg">';
+                    replyForm += '</div>';
+                    replyForm += '<div style="width: 695px;">';
+                    replyForm += '<div style="margin-bottom: 7px;">';
+                    replyForm += '<span>' + data.replyList[i].userDTO.nickName + '</span>';
+                    replyForm += '<span class="reply-split">*</span>';
+                    replyForm += '<span>2시간전</span>';
+                    replyForm += '</div>';
+                    replyForm += '<p style="margin-bottom: 7px;">' + data.replyList[i].content + '</p>';
+                    replyForm += '<div>';
+                    replyForm += '<span><i class="fa-solid fa-heart" style="color: #e67180;"></i></span>';
+                    replyForm += '<span>' + data.replyList[i].likeCount + '</span>';
+                    replyForm += '<span class="reply-split">*</span>';
+                    replyForm += '<span>답글달기</span>';
+                    replyForm += '<span class="reply-split">*</span>';
+                    replyForm += '<span>신고</span>';
+                    replyForm += '</div></div></div>';
+                }
+
+                // 댓글 리스트 재생성
+                $('#reply').html(replyForm);
+            }
+        })
+    })
 });
 
 function savePost() {

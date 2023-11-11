@@ -29,10 +29,10 @@ public class ReplyServiceImpl implements ReplyService{
     public List<ReplyDTO> getRecentReplyList(long boardUid, Pageable pageable) {
 
         List<ReplyDTO> replyDTOList = new ArrayList<>();
-        List<Reply> replyList = replyRepository.findAll(pageable).getContent();
+        List<Reply> replyList = replyRepository.findByBoardUid(boardUid, pageable);
 
         if (replyList.size() == 0) {
-            return null;
+            return replyDTOList;
         }
 
         for (Reply reply : replyList) {
