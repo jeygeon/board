@@ -5,6 +5,8 @@ import com.jaeygun.board.board.entity.Reply;
 import com.jaeygun.board.board.respository.ReplyRepository;
 import com.jaeygun.board.util.TimeUtil;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ import java.util.List;
 public class ReplyServiceImpl implements ReplyService{
 
     private final ReplyRepository replyRepository;
+
+    private final Logger log = LoggerFactory.getLogger(ReplyServiceImpl.class);
 
     @Override
     public ReplyDTO addReply(ReplyDTO replyDTO) {
@@ -45,5 +49,24 @@ public class ReplyServiceImpl implements ReplyService{
     public int getReplyTotalCount(long boardUid) {
 
         return replyRepository.countByBoardUid(boardUid);
+    }
+
+    @Override
+    public ReplyDTO upAndDownReplyLikeCount(long boardUid, long replyUid, String status) {
+
+        Reply reply = replyRepository.findByBoardUidAndReplyUid(boardUid, replyUid);
+
+        ReplyDTO replyDTO = reply.toDTO();
+        switch (status) {
+            case "up":
+                replyDTO.setLikeCount(replyDTO.getLikeCount() + 1);
+                break;
+            case "down":
+                replyDTO.setLikeCount(replyDTO.getLikeCount() - 1);
+                break;
+        }
+
+        reply = replyRepository.save(replyDTO.toEntity());
+        return reply.toDTO();
     }
 }

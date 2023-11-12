@@ -12,5 +12,7 @@ public interface ReplyRepository extends JpaRepository<Reply, Long> {
 
     int countByBoardUid(long boardUid);
 
-    List<Reply> findByBoardUid(Long boardUid, Pageable pageable);
+    List<Reply> findByBoardUid(long boardUid, Pageable pageable);
+
+    Reply findByBoardUidAndReplyUid(long boardUid, long replyUid);
 }

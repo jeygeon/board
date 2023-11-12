@@ -30,4 +30,14 @@ public interface ReplyService {
      * @return
      */
     int getReplyTotalCount(long boardUid);
+
+    /**
+     * 댓글 좋아요 +/-
+     *
+     * @param boardUid
+     * @param replyUid
+     * @param status
+     * @return
+     */
+    ReplyDTO upAndDownReplyLikeCount(long boardUid, long replyUid, String status);
 }

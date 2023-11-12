@@ -15,10 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -90,7 +87,7 @@ public class BoardController {
     }
 
     @PostMapping("/{boardUid}/reply/paging")
-    public Map<String, Object> replyPaging(@PathVariable(value="boardUid") int boardUid, int size, int start) {
+    public Map<String, Object> replyPaging(@PathVariable(value="boardUid") long boardUid, int size, int start) {
 
         Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put(JsonUtil.RESULT, JsonUtil.FAILURE);
@@ -107,6 +104,31 @@ public class BoardController {
         int totalCount = replyService.getReplyTotalCount(boardUid);
         resultMap.put("totalCount", totalCount);
 
+        resultMap.put(JsonUtil.RESULT, JsonUtil.SUCCESS);
+        return resultMap;
+    }
+
+    @PutMapping("/{boardUid}/reply/{replyUid}")
+    public Map<String, Object> UpReplyLikeCount(@PathVariable(value = "boardUid") long boardUid,
+                                                @PathVariable(value = "replyUid") long replyUid,
+                                                HttpServletRequest request,
+                                                HttpSession session) {
+
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        resultMap.put(JsonUtil.RESULT, JsonUtil.FAILURE);
+
+        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+
+        String status = request.getParameter("status");
+
+        ReplyDTO replyDTO = replyService.upAndDownReplyLikeCount(boardUid, replyUid, status);
+        if (replyDTO == null) {
+            resultMap.put(ClientUtil.MESSAGE, "오류가 발생 했습니다.\n잠시 후 다시 시도 해 주세요.");
+            return resultMap;
+        }
+        log.info("[Owner : {}] Reply like count modify > boardUid : {}, replyUid {}, status : {}", loginUser.getNickName(), boardUid, replyUid, status);
+
+        resultMap.put("reply", replyDTO);
         resultMap.put(JsonUtil.RESULT, JsonUtil.SUCCESS);
         return resultMap;
     }

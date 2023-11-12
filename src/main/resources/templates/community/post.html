@@ -30,6 +30,7 @@
     <script src="https://kit.fontawesome.com/0d81e60380.js" crossorigin="anonymous"></script>
 
     <script src="/js/community.js"></script>
+    <script src="/js/post.js"></script>
     <script src="/summernote/summernote-bs4.min.js"></script>
     <link rel="stylesheet" href="/summernote/summernote-bs4.min.css">
 </head>
@@ -95,12 +96,15 @@
                             </div>
                             <p style="margin-bottom: 7px;" th:text="${reply.content}"></p>
                             <div>
-                                <span><i class="fa-solid fa-heart" style="color: #e67180;"></i></span>
-                                <span th:text="${reply.likeCount}"></span>
+                                <div style="display: inline-block" id="reply-hit">
+                                    <span><i class="fa-regular fa-heart" id="hit-icon" style="color: #e67180;"></i></span>
+                                    <span th:text="${reply.likeCount}" id="like-count"></span>
+                                </div>
                                 <span class="reply-split">*</span>
                                 <span>답글달기</span>
                                 <span class="reply-split">*</span>
                                 <span>신고</span>
+                                <input type="hidden" th:value="${reply.replyUid}" id="replyUid">
                             </div>
                         </div>
                     </div>
