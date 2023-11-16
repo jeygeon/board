@@ -134,3 +134,7 @@ html, body {
     margin: 0px 10px;
     padding: 0;
 }
+
+.reply-hit:hover {
+    cursor: pointer;
+}

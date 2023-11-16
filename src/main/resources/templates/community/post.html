@@ -96,15 +96,15 @@
                             </div>
                             <p style="margin-bottom: 7px;" th:text="${reply.content}"></p>
                             <div>
-                                <div style="display: inline-block" id="reply-hit">
+                                <div style="display: inline-block" id="reply-hit" class="reply-hit">
                                     <span><i class="fa-regular fa-heart" id="hit-icon" style="color: #e67180;"></i></span>
-                                    <span th:text="${reply.likeCount}" id="like-count"></span>
+                                    <span th:text="${reply.likeCount}" id="likeCount"></span>
                                 </div>
                                 <span class="reply-split">*</span>
                                 <span>답글달기</span>
                                 <span class="reply-split">*</span>
                                 <span>신고</span>
-                                <input type="hidden" th:value="${reply.replyUid}" id="replyUid">
+                                <input type="hidden" th:value="${reply.replyUid}">
                             </div>
                         </div>
                     </div>

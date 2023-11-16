@@ -33,9 +33,9 @@ $(document).ready(function() {
                     replyForm += '<span>2시간전</span>';
                     replyForm += '</div>';
                     replyForm += '<p style="margin-bottom: 7px;">' + data.replyList[i].content + '</p>';
-                    replyForm += '<div>';
-                    replyForm += '<span><i class="fa-solid fa-heart" style="color: #e67180;"></i></span>';
-                    replyForm += '<span>' + data.replyList[i].likeCount + '</span>';
+                    replyForm += '<div><div style="display: inline-block" id="reply-hit" class="reply-hit">';
+                    replyForm += '<span><i class="fa-regular fa-heart" style="color: #e67180;"></i></span>';
+                    replyForm += '<span>' + data.replyList[i].likeCount + '</span></div>';
                     replyForm += '<span class="reply-split">*</span>';
                     replyForm += '<span>답글달기</span>';
                     replyForm += '<span class="reply-split">*</span>';
@@ -49,39 +49,41 @@ $(document).ready(function() {
             }
         })
     })
-
-    // 댓글 좋아요 버튼 클릭시 icon toggle and like count add
-    $('#reply-hit').click(function() {
-
-        var like = $(this),
-            _replyUid = $('#replyUid').val(),
-            _boardUid = $('#boardUid').val(),
-            _status = "up",
-            param = null;
-
-        if (like.hasClass('fa-solid')) {
-            _status = "down";
-        }
-
-        param = {
-            status : _status,
-            boardUid : _boardUid,
-            replyUid : _replyUid
-        }
-
-        $.ajax({
-            url: '/api/board/' + _boardUid + '/reply/' + _replyUid,
-            type: 'PUT',
-            data: param,
-            dataType: 'json',
-            success:function(data) {
-                like = like.find('#hit-icon').toggleClass('fa-regular fa-solid');
-                alert(data.reply);
-            }
-        })
-
-    });
 });
+
+// 댓글 좋아요 버튼 클릭시 icon toggle and like count add
+$(document).on('click', '#reply-hit', function() {
+
+    var like = $(this),
+        _replyUid = like.siblings()[4].value,
+        _boardUid = $('#boardUid').val(),
+        _status = "up",
+        param = null;
+
+    if (like.children()[0].childNodes[0].classList.contains('fa-solid')) {
+        _status = "down";
+    }
+
+    param = {
+        status : _status,
+        boardUid : _boardUid,
+        replyUid : _replyUid
+    }
+
+    $.ajax({
+        url: '/api/board/' + _boardUid + '/reply/' + _replyUid,
+        type: 'PUT',
+        data: param,
+        dataType: 'json',
+        success:function(data) {
+            like = like.find('#hit-icon').toggleClass('fa-regular fa-solid');
+            var likeCount = data.reply.likeCount;
+            like.prevObject[0].childNodes[3].innerText = likeCount;
+        }
+    })
+
+});
+
 
 function savePost() {
     var _subject = $('.post-subject').val(),
@@ -159,9 +161,9 @@ function replySave(event) {
                             replyForm += '<span>2시간전</span>';
                             replyForm += '</div>';
                             replyForm += '<p style="margin-bottom: 7px;">' + data.replyList[i].content + '</p>';
-                            replyForm += '<div>';
-                            replyForm += '<span><i class="fa-solid fa-heart" style="color: #e67180;"></i></span>';
-                            replyForm += '<span>' + data.replyList[i].likeCount + '</span>';
+                            replyForm += '<div><div style="display: inline-block" id="reply-hit" class="reply-hit">';
+                            replyForm += '<span><i class="fa-regular fa-heart" style="color: #e67180;"></i></span>';
+                            replyForm += '<span>' + data.replyList[i].likeCount + '</span></div>';
                             replyForm += '<span class="reply-split">*</span>';
                             replyForm += '<span>답글달기</span>';
                             replyForm += '<span class="reply-split">*</span>';
