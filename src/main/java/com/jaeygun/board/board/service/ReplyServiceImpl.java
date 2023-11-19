@@ -1,7 +1,9 @@
 package com.jaeygun.board.board.service;
 
 import com.jaeygun.board.board.dto.ReplyDTO;
+import com.jaeygun.board.board.dto.ReplyLikeCheckDTO;
 import com.jaeygun.board.board.entity.Reply;
+import com.jaeygun.board.board.respository.ReplyLikeCheckRepository;
 import com.jaeygun.board.board.respository.ReplyRepository;
 import com.jaeygun.board.util.TimeUtil;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,8 @@ import java.util.List;
 public class ReplyServiceImpl implements ReplyService{
 
     private final ReplyRepository replyRepository;
+
+    private final ReplyLikeCheckRepository replyLikeCheckRepository;
 
     private final Logger log = LoggerFactory.getLogger(ReplyServiceImpl.class);
 
@@ -52,7 +56,7 @@ public class ReplyServiceImpl implements ReplyService{
     }
 
     @Override
-    public ReplyDTO upAndDownReplyLikeCount(long boardUid, long replyUid, String status) {
+    public ReplyDTO updateReplyLikeCount(long boardUid, long replyUid, String status) {
 
         Reply reply = replyRepository.findByBoardUidAndReplyUid(boardUid, replyUid);
 
@@ -68,5 +72,19 @@ public class ReplyServiceImpl implements ReplyService{
 
         reply = replyRepository.save(replyDTO.toEntity());
         return reply.toDTO();
+    }
+
+    @Override
+    public void updateReplyLikeHistory(ReplyLikeCheckDTO replyLikeCheckDTO, String status) {
+
+        switch (status) {
+            case "up":
+                replyLikeCheckRepository.save(replyLikeCheckDTO.toEntity());
+                break;
+            case "down":
+                replyLikeCheckRepository.deleteByUserUidAndReplyUid(replyLikeCheckDTO.getUserUid(), replyLikeCheckDTO.getReplyUid());
+                break;
+        }
+
     }
 }

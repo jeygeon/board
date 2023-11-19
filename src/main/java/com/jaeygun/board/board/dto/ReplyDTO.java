@@ -30,6 +30,8 @@ public class ReplyDTO {
 
     private long createdTime;
 
+    private boolean likeCheck;
+
     public Reply toEntity() {
         return Reply.builder()
                 .replyUid(this.replyUid)

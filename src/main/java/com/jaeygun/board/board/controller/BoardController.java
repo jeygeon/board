@@ -3,6 +3,7 @@ package com.jaeygun.board.board.controller;
 
 import com.jaeygun.board.board.dto.BoardDTO;
 import com.jaeygun.board.board.dto.ReplyDTO;
+import com.jaeygun.board.board.dto.ReplyLikeCheckDTO;
 import com.jaeygun.board.board.service.BoardService;
 import com.jaeygun.board.board.service.ReplyService;
 import com.jaeygun.board.common.dto.MessageDTO;
@@ -87,10 +88,12 @@ public class BoardController {
     }
 
     @PostMapping("/{boardUid}/reply/paging")
-    public Map<String, Object> replyPaging(@PathVariable(value="boardUid") long boardUid, int size, int start) {
+    public Map<String, Object> replyPaging(@PathVariable(value="boardUid") long boardUid, int size, int start, HttpSession session) {
 
         Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put(JsonUtil.RESULT, JsonUtil.FAILURE);
+
+        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 
         Sort sort = Sort.by(Sort.Direction.DESC, "createdTime");
         Pageable pageable = PageRequest.of(start, size, sort);
@@ -98,6 +101,10 @@ public class BoardController {
         if (replyDTOList.size() == 0) {
             resultMap.put("replyList", "");
             return resultMap;
+        }
+
+        for (ReplyDTO replyDTO : replyDTOList) {
+
         }
         resultMap.put("replyList", replyDTOList);
 
@@ -109,7 +116,7 @@ public class BoardController {
     }
 
     @PutMapping("/{boardUid}/reply/{replyUid}")
-    public Map<String, Object> UpReplyLikeCount(@PathVariable(value = "boardUid") long boardUid,
+    public Map<String, Object> UpdateReplyLikeCount(@PathVariable(value = "boardUid") long boardUid,
                                                 @PathVariable(value = "replyUid") long replyUid,
                                                 HttpServletRequest request,
                                                 HttpSession session) {
@@ -118,15 +125,21 @@ public class BoardController {
         resultMap.put(JsonUtil.RESULT, JsonUtil.FAILURE);
 
         UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
-
         String status = request.getParameter("status");
 
-        ReplyDTO replyDTO = replyService.upAndDownReplyLikeCount(boardUid, replyUid, status);
+        // 댓글 좋아요 count update
+        ReplyDTO replyDTO = replyService.updateReplyLikeCount(boardUid, replyUid, status);
         if (replyDTO == null) {
             resultMap.put(ClientUtil.MESSAGE, "오류가 발생 했습니다.\n잠시 후 다시 시도 해 주세요.");
             return resultMap;
         }
-        log.info("[Owner : {}] Reply like count modify > boardUid : {}, replyUid {}, status : {}", loginUser.getNickName(), boardUid, replyUid, status);
+        log.info("[Owner : {}] Reply like count update > boardUid : {}, replyUid {}, status : {}", loginUser.getNickName(), boardUid, replyUid, status);
+
+        // 댓글 좋아요 기록 update
+        ReplyLikeCheckDTO replyLikeCheckDTO = new ReplyLikeCheckDTO();
+        replyLikeCheckDTO.setUserUid(loginUser.getUserUid());
+        replyLikeCheckDTO.setReplyUid(replyDTO.getReplyUid());
+        replyService.updateReplyLikeHistory(replyLikeCheckDTO, status);
 
         resultMap.put("reply", replyDTO);
         resultMap.put(JsonUtil.RESULT, JsonUtil.SUCCESS);
