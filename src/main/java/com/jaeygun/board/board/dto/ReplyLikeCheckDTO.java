@@ -11,7 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 public class ReplyLikeCheckDTO {
 
-    private long replyLikeCheckUid;
+    private long replyLikeUid;
 
     private long userUid;
 
@@ -19,7 +19,7 @@ public class ReplyLikeCheckDTO {
 
     public ReplyLikeCheck toEntity() {
         return ReplyLikeCheck.builder()
-                .replyLikeCheckUid(this.replyLikeCheckUid)
+                .replyLikeUid(this.replyLikeUid)
                 .userUid(this.userUid)
                 .replyUid(this.replyUid)
                 .build();

@@ -3,6 +3,7 @@ package com.jaeygun.board.board.service;
 import com.jaeygun.board.board.dto.ReplyDTO;
 import com.jaeygun.board.board.dto.ReplyLikeCheckDTO;
 import com.jaeygun.board.board.entity.Reply;
+import com.jaeygun.board.board.entity.ReplyLikeCheck;
 import com.jaeygun.board.board.respository.ReplyLikeCheckRepository;
 import com.jaeygun.board.board.respository.ReplyRepository;
 import com.jaeygun.board.util.TimeUtil;
@@ -86,5 +87,13 @@ public class ReplyServiceImpl implements ReplyService{
                 break;
         }
 
+    }
+
+    @Override
+    public int checkReplyLikeStatus(long userUid, long replyUid) {
+
+        ReplyLikeCheckDTO replyLikeCheckDTO = new ReplyLikeCheckDTO();
+        ReplyLikeCheck replyLikeCheck = replyLikeCheckRepository.findByUserUidAndReplyUid(userUid, replyUid);
+        return replyLikeCheck != null ? 1 : 0;
     }
 }

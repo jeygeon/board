@@ -34,7 +34,11 @@ $(document).ready(function() {
                     replyForm += '</div>';
                     replyForm += '<p style="margin-bottom: 7px;">' + data.replyList[i].content + '</p>';
                     replyForm += '<div><div style="display: inline-block" id="reply-hit" class="reply-hit">';
-                    replyForm += '<span><i class="fa-regular fa-heart" style="color: #e67180;"></i></span>';
+                    if (data.replyList[i].likeCheck) {
+                        replyForm += '<span><i class="fa-solid fa-heart" id="hit-icon" style="color: #e67180;"></i></span>';
+                    } else {
+                        replyForm += '<span><i class="fa-regular fa-heart" id="hit-icon" style="color: #e67180;"></i></span>';
+                    }
                     replyForm += '<span>' + data.replyList[i].likeCount + '</span></div>';
                     replyForm += '<span class="reply-split">*</span>';
                     replyForm += '<span>답글달기</span>';
@@ -60,7 +64,7 @@ $(document).on('click', '#reply-hit', function() {
         _status = "up",
         param = null;
 
-    if (like.children()[0].childNodes[0].classList.contains('fa-solid')) {
+    if (like[0].children[0].children[0].classList.contains('fa-solid')) {
         _status = "down";
     }
 
@@ -77,8 +81,9 @@ $(document).on('click', '#reply-hit', function() {
         dataType: 'json',
         success:function(data) {
             like = like.find('#hit-icon').toggleClass('fa-regular fa-solid');
+            // like = like[0].children[0].children[0].toggleClass('fa-regular fa-solid');
             var likeCount = data.reply.likeCount;
-            like.prevObject[0].childNodes[3].innerText = likeCount;
+            like.prevObject[0].children[1].innerText = likeCount;
         }
     })
 
@@ -162,7 +167,11 @@ function replySave(event) {
                             replyForm += '</div>';
                             replyForm += '<p style="margin-bottom: 7px;">' + data.replyList[i].content + '</p>';
                             replyForm += '<div><div style="display: inline-block" id="reply-hit" class="reply-hit">';
-                            replyForm += '<span><i class="fa-regular fa-heart" style="color: #e67180;"></i></span>';
+                            if (data.replyList[i].likeCheck) {
+                                replyForm += '<span><i class="fa-solid fa-heart" id="hit-icon" style="color: #e67180;"></i></span>';
+                            } else {
+                                replyForm += '<span><i class="fa-regular fa-heart" id="hit-icon" style="color: #e67180;"></i></span>';
+                            }
                             replyForm += '<span>' + data.replyList[i].likeCount + '</span></div>';
                             replyForm += '<span class="reply-split">*</span>';
                             replyForm += '<span>답글달기</span>';

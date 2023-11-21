@@ -104,7 +104,10 @@ public class BoardController {
         }
 
         for (ReplyDTO replyDTO : replyDTOList) {
-
+            int checkResult = replyService.checkReplyLikeStatus(loginUser.getUserUid(), replyDTO.getReplyUid());
+            if (checkResult == 1) {
+                replyDTO.setLikeCheck(true);
+            }
         }
         resultMap.put("replyList", replyDTOList);
 

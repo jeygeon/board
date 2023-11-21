@@ -16,7 +16,7 @@ public class ReplyLikeCheck {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long replyLikeCheckUid;
+    private long replyLikeUid;
 
     private long userUid;
 
@@ -24,7 +24,7 @@ public class ReplyLikeCheck {
 
     public ReplyLikeCheckDTO toDTO() {
         return ReplyLikeCheckDTO.builder()
-                .replyLikeCheckUid(this.replyLikeCheckUid)
+                .replyLikeUid(this.replyLikeUid)
                 .userUid(this.userUid)
                 .replyUid(this.replyUid)
                 .build();

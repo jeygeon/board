@@ -30,7 +30,7 @@ public class ReplyDTO {
 
     private long createdTime;
 
-    private boolean likeCheck;
+    private boolean likeCheck = false;
 
     public Reply toEntity() {
         return Reply.builder()

@@ -97,7 +97,14 @@
                             <p style="margin-bottom: 7px;" th:text="${reply.content}"></p>
                             <div>
                                 <div style="display: inline-block" id="reply-hit" class="reply-hit">
-                                    <span><i class="fa-regular fa-heart" id="hit-icon" style="color: #e67180;"></i></span>
+                                    <span>
+                                        <th:block th:if="${reply.likeCheck == true}">
+                                            <i class="fa-solid fa-heart" id="hit-icon" style="color: #e67180;"></i>
+                                        </th:block>
+                                        <th:block th:unless="${reply.likeCheck == true}">
+                                            <i class="fa-regular fa-heart" id="hit-icon" style="color: #e67180;"></i>
+                                        </th:block>
+                                    </span>
                                     <span th:text="${reply.likeCount}" id="likeCount"></span>
                                 </div>
                                 <span class="reply-split">*</span>

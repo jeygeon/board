@@ -49,4 +49,13 @@ public interface ReplyService {
      * @param status
      */
     void updateReplyLikeHistory(ReplyLikeCheckDTO replyLikeCheckDTO, String status);
+
+    /**
+     * 댓글 좋아요 여부 확인
+     *
+     * @param userUid
+     * @param replyUid
+     * @return
+     */
+    int checkReplyLikeStatus(long userUid, long replyUid);
 }

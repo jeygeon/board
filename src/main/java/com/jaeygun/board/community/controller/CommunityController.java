@@ -50,8 +50,9 @@ public class CommunityController {
     }
 
     @GetMapping("/post/{boardUid}")
-    public String post(Model model, @PathVariable long boardUid) {
+    public String post(HttpSession session, Model model, @PathVariable long boardUid) {
 
+        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
         BoardDTO boardDTO = boardService.findPostByBoardUid(boardUid);
         model.addAttribute("board", boardDTO);
 
@@ -64,6 +65,12 @@ public class CommunityController {
         Sort sort = Sort.by(Sort.Direction.DESC, "createdTime");
         Pageable pageable = PageRequest.of(0, 5, sort);
         List<ReplyDTO> replyDTOList = replyService.getRecentReplyList(boardUid, pageable);
+        for (ReplyDTO replyDTO : replyDTOList) {
+            int checkResult = replyService.checkReplyLikeStatus(loginUser.getUserUid(), replyDTO.getReplyUid());
+            if (checkResult == 1) {
+                replyDTO.setLikeCheck(true);
+            }
+        }
         model.addAttribute("replyList", replyDTOList);
 
         return "community/post";

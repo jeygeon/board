@@ -16,4 +16,6 @@ public interface ReplyLikeCheckRepository extends JpaRepository<ReplyLikeCheck, 
     @Transactional
     @Query("DELETE FROM ReplyLikeCheck rlc WHERE rlc.userUid = :userUid AND rlc.replyUid = :replyUid")
     void deleteByUserUidAndReplyUid(@Param("userUid") long userUid, @Param("replyUid") long replyUid);
+
+    ReplyLikeCheck findByUserUidAndReplyUid(long userUid, long replyUid);
 }
