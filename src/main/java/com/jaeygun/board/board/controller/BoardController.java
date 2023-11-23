@@ -7,6 +7,7 @@ import com.jaeygun.board.board.dto.ReplyLikeCheckDTO;
 import com.jaeygun.board.board.service.BoardService;
 import com.jaeygun.board.board.service.ReplyService;
 import com.jaeygun.board.common.dto.MessageDTO;
+import com.jaeygun.board.common.dto.PaginationDTO;
 import com.jaeygun.board.user.dto.UserDTO;
 import com.jaeygun.board.util.ClientUtil;
 import com.jaeygun.board.util.JsonUtil;
@@ -113,6 +114,10 @@ public class BoardController {
 
         int totalCount = replyService.getReplyTotalCount(boardUid);
         resultMap.put("totalCount", totalCount);
+
+        start = start == 0 ? 1 : start;
+        PaginationDTO paginationDTO = new PaginationDTO(totalCount, start, 5, 5);
+        resultMap.put("pagination", paginationDTO);
 
         resultMap.put(JsonUtil.RESULT, JsonUtil.SUCCESS);
         return resultMap;

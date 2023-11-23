@@ -46,6 +46,14 @@ public class PaginationDTO {
     // 다음 블록의 시작 페이지
     private int nextBlock;
 
+    /**
+     * 페이징 객체 생성
+     *
+     * @param totalListCnt 총 댓글 갯수
+     * @param page 현재 페이지
+     * @param pageSize 페이지당 보여지는 게시글의 최대 갯수
+     * @param blockSize 페이징된 버튼의 블럭당 최대 갯수
+     */
     public PaginationDTO(int totalListCnt, int page, int pageSize, int blockSize) {
 
         // 총 게시물 수 - totalListCnt

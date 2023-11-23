@@ -60,6 +60,9 @@ public class CommunityController {
         model.addAttribute("totalCount", totalCount);
 
         PaginationDTO paginationDTO = new PaginationDTO(totalCount, 1, 5, 5);
+        if (paginationDTO.getEndPage() == 0) {
+            paginationDTO.setEndPage(1);
+        }
         model.addAttribute("pagination", paginationDTO);
 
         Sort sort = Sort.by(Sort.Direction.DESC, "createdTime");
