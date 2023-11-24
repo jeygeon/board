@@ -153,4 +153,17 @@ public class BoardController {
         resultMap.put(JsonUtil.RESULT, JsonUtil.SUCCESS);
         return resultMap;
     }
+
+    @PostMapping("/{boardUid}/userLike/{status}")
+    public Map<String, Object> likePost(HttpSession session,
+                                        @PathVariable(value = "boardUid") long boardUid,
+                                        @PathVariable(value = "status") boolean status) {
+
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        resultMap.put(JsonUtil.RESULT, JsonUtil.FAILURE);
+
+        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+
+        return resultMap;
+    }
 }

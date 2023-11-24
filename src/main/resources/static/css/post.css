@@ -67,8 +67,7 @@ html, body {
     line-height: 55px;
     text-align: center;
     border-radius: 100px;
-    color: #bcb0f4;
-    box-shadow: 0px 0px 4px 0px;
+    color: #e67180;
 }
 
 .post-like-btn:hover,
