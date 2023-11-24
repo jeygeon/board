@@ -97,7 +97,7 @@ public class BoardController {
         UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 
         Sort sort = Sort.by(Sort.Direction.DESC, "createdTime");
-        Pageable pageable = PageRequest.of(start, size, sort);
+        Pageable pageable = PageRequest.of(start - 1, size, sort);
         List<ReplyDTO> replyDTOList = replyService.getRecentReplyList(boardUid, pageable);
         if (replyDTOList.size() == 0) {
             resultMap.put("replyList", "");
@@ -115,7 +115,7 @@ public class BoardController {
         int totalCount = replyService.getReplyTotalCount(boardUid);
         resultMap.put("totalCount", totalCount);
 
-        start = start == 0 ? 1 : start;
+        // start = start == 0 ? 1 : start;
         PaginationDTO paginationDTO = new PaginationDTO(totalCount, start, 5, 5);
         resultMap.put("pagination", paginationDTO);
 

@@ -3,7 +3,7 @@ $(document).on('click', '.page-btn', function(data) {
 
     var _page = data.currentTarget.value,
         _boardUid = $('#boardUid').val(),
-        _start = _page - 1,
+        _start = _page,
         pagingParam = null;
 
     pagingParam = {
@@ -47,6 +47,19 @@ $(document).on('click', '.page-btn', function(data) {
             }
             // 댓글 리스트 재생성
             $('#reply').html(replyForm);
+
+            var paging = data.pagination;
+            var pagingForm = '<button class="page-btn" value="' + paging.prevBlock + '"><</button>';
+            if (paging.startPage == paging.endPage) {
+                pagingForm += '<button value="' + paging.startPage + '" id="page" class="page-btn">' + paging.startPage + '</button>';
+            } else {
+                for (var i = paging.startPage; i<paging.endPage+1; i++) {
+                    pagingForm += '<button value="' + i + '" id="page" class="page-btn">' + i + '</button>';
+                }
+            }
+            pagingForm += '<button class="page-btn" value="' + paging.nextBlock + '">></button>';
+            // 댓글 페이징 재생성
+            $('.reply-paging').html(pagingForm);
         }
     })
 })
@@ -137,7 +150,7 @@ function replySave(event) {
                 }
 
                 var pagingParam = {
-                    start : 0,
+                    start : 1,
                     size : 5,
                     boardUid : _boardUid
                 }
