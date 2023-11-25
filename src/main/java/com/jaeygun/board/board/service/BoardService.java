@@ -31,4 +31,13 @@ public interface BoardService {
      * @return
      */
     List<BoardDTO> getRecentBoardList(int count);
+
+    /**
+     * 게시글 좋아요
+     *
+     * @param loginUser 사용자
+     * @param boardUid 게시글 uid
+     * @param status true: 좋아요, false: 좋아요 취소
+     */
+    void userLikePost(UserDTO loginUser, long boardUid, boolean status);
 }
