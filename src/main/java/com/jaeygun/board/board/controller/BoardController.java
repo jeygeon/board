@@ -154,7 +154,7 @@ public class BoardController {
         return resultMap;
     }
 
-    @PostMapping("/{boardUid}/userLike/{status}")
+    @PostMapping("/{boardUid}/like/{status}")
     public Map<String, Object> likePost(HttpSession session,
                                         @PathVariable(value = "boardUid") long boardUid,
                                         @PathVariable(value = "status") boolean status) {

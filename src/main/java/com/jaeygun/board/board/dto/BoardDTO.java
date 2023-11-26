@@ -21,6 +21,8 @@ public class BoardDTO {
 
     private long hit;
 
+    private long likeCount;
+
     private long postRegTime;
 
     private long lastPostUpdated;
@@ -32,6 +34,7 @@ public class BoardDTO {
                 .subject(this.subject)
                 .content(this.content)
                 .hit(this.hit)
+                .likeCount(this.likeCount)
                 .postRegTime(this.postRegTime)
                 .lastPostUpdated(this.lastPostUpdated)
                 .build();

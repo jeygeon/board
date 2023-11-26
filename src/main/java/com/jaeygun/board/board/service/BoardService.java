@@ -40,4 +40,12 @@ public interface BoardService {
      * @param status true: 좋아요, false: 좋아요 취소
      */
     void userLikePost(UserDTO loginUser, long boardUid, boolean status);
+
+    /**
+     * 사용자가 게시글에 좋아요 눌렀는지 확인 여부
+     *
+     * @param boardDTO 게시글DTO
+     * @return
+     */
+    boolean userLikePost(BoardDTO boardDTO, UserDTO userDTO);
 }

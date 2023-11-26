@@ -26,6 +26,8 @@ public class Board {
 
     private long hit;
 
+    private long likeCount;
+
     private long postRegTime;
 
     private long lastPostUpdated;
@@ -37,6 +39,7 @@ public class Board {
                 .subject(this.subject)
                 .content(this.content)
                 .hit(this.hit)
+                .likeCount(this.likeCount)
                 .postRegTime(this.postRegTime)
                 .lastPostUpdated(this.lastPostUpdated)
                 .build();

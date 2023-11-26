@@ -63,11 +63,18 @@ public class BoardServiceImpl implements BoardService{
     public void userLikePost(UserDTO loginUser, long boardUid, boolean status) {
 
         Board board = boardRepository.getBoardByBoardUid(boardUid);
+        long likeCount = board.getLikeCount();
 
         if (!status) {
+            board.setLikeCount(likeCount - 1);
+            boardRepository.save(board);
+
             userPostLikeRepository.deleteByUserUidAndBoardUid(loginUser.getUserUid(), boardUid);
             log.info("[user : {}] 게시글 좋아요 취소 > boardUid : {}", loginUser.getNickName(), boardUid);
         } else {
+            board.setLikeCount(likeCount + 1);
+            boardRepository.save(board);
+
             UserPostLike userPostLike = new UserPostLike();
             userPostLike.setBoardUid(board.getBoardUid());
             userPostLike.setUserUid(loginUser.getUserUid());
@@ -75,5 +82,12 @@ public class BoardServiceImpl implements BoardService{
             userPostLikeRepository.save(userPostLike);
             log.info("[user : {}] 게시글 좋아요 > boardUid : {}", loginUser.getNickName(), boardUid);
         }
+    }
+
+    @Override
+    public boolean userLikePost(BoardDTO boardDTO, UserDTO userDTO) {
+
+        UserPostLike userPostLike = userPostLikeRepository.findByBoardUidAndUserUid(boardDTO.getBoardUid(), userDTO.getUserUid());
+        return userPostLike == null ? false : true;
     }
 }

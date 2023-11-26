@@ -64,6 +64,33 @@ $(document).on('click', '.page-btn', function(data) {
     })
 })
 
+$(document).on('click', '.post-like-btn', function() {
+
+    var _boardUid = $('#boardUid').val(),
+        _status = true,
+        param = null,
+        postLikeBtn = $(this);
+
+    if (postLikeBtn[0].childNodes[1].classList.contains('fa-solid')) {
+        _status == false;
+    }
+
+    param = {
+        boardUid: _boardUid,
+        status: _status
+    }
+
+    $.ajax({
+        url: '/api/board/' + _boardUid + '/like/' + _status,
+        type: 'POST',
+        data: param,
+        dataType: 'json',
+        success: function (data) {
+            postLikeBtn.find('.post-like-icon').toggleClass('fa-regular fa-solid')
+        }
+    })
+})
+
 // 댓글 좋아요 버튼 클릭시 icon toggle and like count add
 $(document).on('click', '#reply-hit', function() {
 

@@ -55,19 +55,15 @@ html, body {
     line-height: 55px;
     text-align: center;
     border-radius: 100px;
-    color: #bcb0f4;
-    box-shadow: 0px 0px 5px 0px;
+    box-shadow: 0px 0px 2px 0px;
 }
 
-.post-like-btn,
-.post-sub-btn {
-    border: 1px solid #e0ddef;
-    width: 55px;
-    height: 55px;
-    line-height: 55px;
-    text-align: center;
-    border-radius: 100px;
+.post-like-btn {
     color: #e67180;
+}
+
+.post-sub-btn {
+    color: #bbb9e2;
 }
 
 .post-like-btn:hover,

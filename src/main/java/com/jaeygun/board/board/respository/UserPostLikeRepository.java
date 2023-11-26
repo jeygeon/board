@@ -17,4 +17,5 @@ public interface UserPostLikeRepository extends JpaRepository<UserPostLike, Long
     @Query("DELETE FROM UserPostLike upl WHERE upl.userUid = :userUid AND upl.boardUid = :boardUid")
     void deleteByUserUidAndBoardUid(@Param("userUid") long userUid, @Param("boardUid") long boardUid);
 
+    UserPostLike findByBoardUidAndUserUid(long boardUid, long userUid);
 }
