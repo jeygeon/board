@@ -2,6 +2,7 @@ package com.jaeygun.board.board.service;
 
 import com.jaeygun.board.board.dto.BoardDTO;
 import com.jaeygun.board.user.dto.UserDTO;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -15,14 +16,6 @@ public interface BoardService {
      * @return
      */
     BoardDTO addPost(UserDTO userDTO, BoardDTO boardDTO);
-
-    /**
-     * 게시글 조회
-     *
-     * @param boardUid
-     * @return
-     */
-    BoardDTO findPostByBoardUid(long boardUid);
 
     /**
      * 모든 게시글 반환
@@ -42,10 +35,11 @@ public interface BoardService {
     void userLikePost(UserDTO loginUser, long boardUid, boolean status);
 
     /**
-     * 사용자가 게시글에 좋아요 눌렀는지 확인 여부
+     * 게시글 정보 불러오기
      *
-     * @param boardDTO 게시글DTO
-     * @return
+     * @param model
+     * @param boardUid 게시글 uid
+     * @param loginUser 로그인 사용자
      */
-    boolean userLikePost(BoardDTO boardDTO, UserDTO userDTO);
+    void postDetail(Model model, long boardUid, UserDTO loginUser);
 }

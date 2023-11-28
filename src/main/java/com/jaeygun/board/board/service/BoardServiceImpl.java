@@ -1,10 +1,16 @@
 package com.jaeygun.board.board.service;
 
 import com.jaeygun.board.board.dto.BoardDTO;
+import com.jaeygun.board.board.dto.ReplyDTO;
 import com.jaeygun.board.board.entity.Board;
+import com.jaeygun.board.board.entity.Reply;
+import com.jaeygun.board.board.entity.ReplyLikeCheck;
 import com.jaeygun.board.board.entity.UserPostLike;
 import com.jaeygun.board.board.respository.BoardRepository;
+import com.jaeygun.board.board.respository.ReplyLikeCheckRepository;
+import com.jaeygun.board.board.respository.ReplyRepository;
 import com.jaeygun.board.board.respository.UserPostLikeRepository;
+import com.jaeygun.board.common.dto.PaginationDTO;
 import com.jaeygun.board.user.dto.UserDTO;
 import com.jaeygun.board.util.TimeUtil;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +20,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +36,10 @@ public class BoardServiceImpl implements BoardService{
 
     private final UserPostLikeRepository userPostLikeRepository;
 
+    private final ReplyRepository replyRepository;
+
+    private final ReplyLikeCheckRepository replyLikeCheckRepository;
+
     @Override
     public BoardDTO addPost(UserDTO userDTO, BoardDTO boardDTO) {
 
@@ -37,13 +48,6 @@ public class BoardServiceImpl implements BoardService{
         boardDTO.setLastPostUpdated(TimeUtil.currentTime());
         Board board = boardRepository.save(boardDTO.toEntity());
         return board.toDTO();
-    }
-
-    @Override
-    public BoardDTO findPostByBoardUid(long boardUid) {
-
-        Board board = boardRepository.getBoardByBoardUid(boardUid);
-        return board == null ? null : board.toDTO();
     }
 
     @Override
@@ -85,9 +89,49 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public boolean userLikePost(BoardDTO boardDTO, UserDTO userDTO) {
+    public void postDetail(Model model, long boardUid, UserDTO loginUser) {
 
-        UserPostLike userPostLike = userPostLikeRepository.findByBoardUidAndUserUid(boardDTO.getBoardUid(), userDTO.getUserUid());
-        return userPostLike == null ? false : true;
+        // 게시글 정보
+        Board board = boardRepository.getBoardByBoardUid(boardUid);
+        BoardDTO boardDTO = board.toDTO();
+        model.addAttribute("board", boardDTO);
+
+        // 게시글 좋아요 상태 체크
+        UserPostLike userPostLike = userPostLikeRepository.findByBoardUidAndUserUid(boardDTO.getBoardUid(), loginUser.getUserUid());
+        boolean likeStatus = false;
+        if (userPostLike != null) {
+            likeStatus = true;
+        }
+        model.addAttribute("likeStatus", likeStatus);
+
+        // 댓글 총 갯수
+        int totalReplyCount = replyRepository.countByBoardUid(boardUid);
+        model.addAttribute("totalCount", totalReplyCount);
+
+        // 댓글 페이징 정보
+        PaginationDTO paginationDTO = new PaginationDTO(totalReplyCount, 1, 5, 5);
+        if (paginationDTO.getEndPage() == 0) {
+            paginationDTO.setEndPage(1);
+        }
+        model.addAttribute("pagination", paginationDTO);
+
+        // 댓글 정보
+        Sort sort = Sort.by(Sort.Direction.DESC, "createdTime");
+        Pageable pageable = PageRequest.of(0, 5, sort);
+        List<Reply> replyList = replyRepository.findByBoardUid(boardUid, pageable);
+        List<ReplyDTO> replyDTOList = new ArrayList<ReplyDTO>();
+        for (Reply reply : replyList) {
+            replyDTOList.add(reply.toDTO());
+        }
+
+        // 댓글 각각에 좋아요 상태 체크
+        ReplyLikeCheck replyLikeCheck;
+        for (ReplyDTO replyDTO : replyDTOList) {
+            replyLikeCheck = replyLikeCheckRepository.findByUserUidAndReplyUid(loginUser.getUserUid(), replyDTO.getReplyUid());
+            if (replyLikeCheck != null) {
+                replyDTO.setLikeCheck(true);
+            }
+        }
+        model.addAttribute("replyList", replyDTOList);
     }
 }

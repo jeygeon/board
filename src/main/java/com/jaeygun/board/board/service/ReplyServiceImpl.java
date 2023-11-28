@@ -51,12 +51,6 @@ public class ReplyServiceImpl implements ReplyService{
     }
 
     @Override
-    public int getReplyTotalCount(long boardUid) {
-
-        return replyRepository.countByBoardUid(boardUid);
-    }
-
-    @Override
     public ReplyDTO updateReplyLikeCount(long boardUid, long replyUid, String status) {
 
         Reply reply = replyRepository.findByBoardUidAndReplyUid(boardUid, replyUid);
