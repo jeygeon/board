@@ -163,7 +163,21 @@ public class BoardController {
         resultMap.put(JsonUtil.RESULT, JsonUtil.FAILURE);
 
         UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
-        boardService.userLikePost(loginUser, boardUid, status);
+        boardService.likePost(loginUser, boardUid, status);
+
+        return resultMap;
+    }
+
+    @PostMapping("/{boardUid}/subscribe/{status}")
+    public Map<String, Object> subscribePost(HttpSession session,
+                                        @PathVariable(value = "boardUid") long boardUid,
+                                        @PathVariable(value = "status") boolean status) {
+
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        resultMap.put(JsonUtil.RESULT, JsonUtil.FAILURE);
+
+        UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+        boardService.subscribePost(loginUser, boardUid, status);
 
         return resultMap;
     }

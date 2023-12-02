@@ -2,14 +2,8 @@ package com.jaeygun.board.board.service;
 
 import com.jaeygun.board.board.dto.BoardDTO;
 import com.jaeygun.board.board.dto.ReplyDTO;
-import com.jaeygun.board.board.entity.Board;
-import com.jaeygun.board.board.entity.Reply;
-import com.jaeygun.board.board.entity.ReplyLikeCheck;
-import com.jaeygun.board.board.entity.UserPostLike;
-import com.jaeygun.board.board.respository.BoardRepository;
-import com.jaeygun.board.board.respository.ReplyLikeCheckRepository;
-import com.jaeygun.board.board.respository.ReplyRepository;
-import com.jaeygun.board.board.respository.UserPostLikeRepository;
+import com.jaeygun.board.board.entity.*;
+import com.jaeygun.board.board.respository.*;
 import com.jaeygun.board.common.dto.PaginationDTO;
 import com.jaeygun.board.user.dto.UserDTO;
 import com.jaeygun.board.util.TimeUtil;
@@ -40,6 +34,8 @@ public class BoardServiceImpl implements BoardService{
 
     private final ReplyLikeCheckRepository replyLikeCheckRepository;
 
+    private final UserPostSubscribeRepository userPostSubscribeRepository;
+
     @Override
     public BoardDTO addPost(UserDTO userDTO, BoardDTO boardDTO) {
 
@@ -64,7 +60,7 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public void userLikePost(UserDTO loginUser, long boardUid, boolean status) {
+    public void likePost(UserDTO loginUser, long boardUid, boolean status) {
 
         Board board = boardRepository.getBoardByBoardUid(boardUid);
         long likeCount = board.getLikeCount();
@@ -133,5 +129,23 @@ public class BoardServiceImpl implements BoardService{
             }
         }
         model.addAttribute("replyList", replyDTOList);
+    }
+
+    @Override
+    public void subscribePost(UserDTO loginUser, long boardUid, boolean status) {
+
+        Board board = boardRepository.getBoardByBoardUid(boardUid);
+
+        if (!status) {
+            userPostSubscribeRepository.deleteByUserUidAndBoardUid(loginUser.getUserUid(), boardUid);
+            log.info("[user : {}] 게시글 구독 취소 > boardUid : {}", loginUser.getNickName(), boardUid);
+        } else {
+            UserPostSubscribe userPostSubscribe = new UserPostSubscribe();
+            userPostSubscribe.setBoardUid(board.getBoardUid());
+            userPostSubscribe.setUserUid(loginUser.getUserUid());
+            userPostSubscribe.setSubscribeTime(TimeUtil.currentTime());
+            userPostSubscribeRepository.save(userPostSubscribe);
+            log.info("[user : {}] 게시글 구독 > boardUid : {}", loginUser.getNickName(), boardUid);
+        }
     }
 }
