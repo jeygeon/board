@@ -54,7 +54,7 @@
                     </div>
                     <div>
                         <i class="fa-solid fa-heart" style="color: #e67180;"></i>
-                        <span th:text="${board.hit}"></span>
+                        <span th:text="${board.likeCount}" id="post-like-count"></span>
                     </div>
                 </div>
                 <input type="hidden" id="boardUid" th:value="${board.boardUid}">
@@ -64,10 +64,10 @@
             <textarea style="width: 100%" th:text="${board.content}"></textarea>
             <div class="postBottom-section" style="display: flex; justify-content: flex-end; width: 100%;">
                 <div class="post-like-btn" style="margin-right: 20px;">
-                    <th:block th:if="${likePost} == true">
+                    <th:block th:if="${likeStatus} == true">
                         <i class="fa-solid fa-heart fa-2xl post-like-icon"></i>
                     </th:block>
-                    <th:block th:unless="${likePost} == true">
+                    <th:block th:unless="${likeStatus} == true">
                         <i class="fa-regular fa-heart fa-2xl post-like-icon"></i>
                     </th:block>
                 </div>

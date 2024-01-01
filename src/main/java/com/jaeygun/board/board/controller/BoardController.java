@@ -163,7 +163,8 @@ public class BoardController {
         resultMap.put(JsonUtil.RESULT, JsonUtil.FAILURE);
 
         UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
-        boardService.likePost(loginUser, boardUid, status);
+        BoardDTO boardDTO = boardService.likePost(loginUser, boardUid, status);
+        resultMap.put("postLikeCount", boardDTO.getLikeCount());
 
         return resultMap;
     }

@@ -60,7 +60,7 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public void likePost(UserDTO loginUser, long boardUid, boolean status) {
+    public BoardDTO likePost(UserDTO loginUser, long boardUid, boolean status) {
 
         Board board = boardRepository.getBoardByBoardUid(boardUid);
         long likeCount = board.getLikeCount();
@@ -82,6 +82,9 @@ public class BoardServiceImpl implements BoardService{
             userPostLikeRepository.save(userPostLike);
             log.info("[user : {}] 게시글 좋아요 > boardUid : {}", loginUser.getNickName(), boardUid);
         }
+
+        board = boardRepository.getBoardByBoardUid(boardUid);
+        return board.toDTO();
     }
 
     @Override

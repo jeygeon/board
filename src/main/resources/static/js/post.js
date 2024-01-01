@@ -72,7 +72,7 @@ $(document).on('click', '.post-like-btn', function() {
         postLikeBtn = $(this);
 
     if (postLikeBtn[0].childNodes[1].classList.contains('fa-solid')) {
-        _status == false;
+        _status = false;
     }
 
     param = {
@@ -86,6 +86,7 @@ $(document).on('click', '.post-like-btn', function() {
         data: param,
         dataType: 'json',
         success: function (data) {
+            $('#post-like-count').text(data.postLikeCount);
             postLikeBtn.find('.post-like-icon').toggleClass('fa-regular fa-solid')
         }
     })

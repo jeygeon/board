@@ -32,7 +32,7 @@ public interface BoardService {
      * @param boardUid 게시글 uid
      * @param status true: 좋아요, false: 좋아요 취소
      */
-    void likePost(UserDTO loginUser, long boardUid, boolean status);
+    BoardDTO likePost(UserDTO loginUser, long boardUid, boolean status);
 
     /**
      * 게시글 정보 불러오기
