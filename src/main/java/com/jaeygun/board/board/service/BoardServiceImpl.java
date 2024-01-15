@@ -97,11 +97,13 @@ public class BoardServiceImpl implements BoardService{
 
         // 게시글 좋아요 상태 체크
         UserPostLike userPostLike = userPostLikeRepository.findByBoardUidAndUserUid(boardDTO.getBoardUid(), loginUser.getUserUid());
-        boolean likeStatus = false;
-        if (userPostLike != null) {
-            likeStatus = true;
-        }
+        boolean likeStatus = userPostLike == null ? false : true;
         model.addAttribute("likeStatus", likeStatus);
+
+        // 게시글 구독 상태 체크
+        UserPostSubscribe userPostSubscribe = userPostSubscribeRepository.findByBoardUidAndUserUid(boardDTO.getBoardUid(), loginUser.getUserUid());
+        boolean subStatus = userPostSubscribe == null ? false : true;
+        model.addAttribute("subStatus", subStatus);
 
         // 댓글 총 갯수
         int totalReplyCount = replyRepository.countByBoardUid(boardUid);

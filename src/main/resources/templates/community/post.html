@@ -72,7 +72,12 @@
                     </th:block>
                 </div>
                 <div class="post-sub-btn" style="margin-right: 10px;">
-                    <i class="fa-regular fa-bookmark fa-2xl post-sub-icon"></i>
+                    <th:block th:if="${subStatus} == true">
+                        <i class="fa-solid fa-bookmark fa-2xl post-sub-icon"></i>
+                    </th:block>
+                    <th:block th:unless="${subStatus} == true">
+                        <i class="fa-regular fa-bookmark fa-2xl post-sub-icon"></i>
+                    </th:block>
                 </div>
             </div>
         </div>

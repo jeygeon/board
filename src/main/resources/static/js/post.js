@@ -64,6 +64,33 @@ $(document).on('click', '.page-btn', function(data) {
     })
 })
 
+$(document).on('click', '.post-sub-btn', function() {
+
+    var _boardUid = $('#boardUid').val(),
+        _status = true,
+        param = null,
+        postSubBtn = $(this);
+
+    if (postSubBtn[0].childNodes[1].classList.contains('fa-solid')) {
+        _status = false;
+    }
+
+    param = {
+        boardUid: _boardUid,
+        status: _status
+    }
+
+    $.ajax({
+        url: '/api/board/' + _boardUid + '/subscribe/' + _status,
+        type: 'POST',
+        data: param,
+        dataType: 'json',
+        success: function (data) {
+            postSubBtn.find('.post-sub-icon').toggleClass('fa-regular fa-solid')
+        }
+    })
+})
+
 $(document).on('click', '.post-like-btn', function() {
 
     var _boardUid = $('#boardUid').val(),

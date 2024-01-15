@@ -179,6 +179,7 @@ public class BoardController {
 
         UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
         boardService.subscribePost(loginUser, boardUid, status);
+        resultMap.put(JsonUtil.RESULT, JsonUtil.SUCCESS);
 
         return resultMap;
     }
