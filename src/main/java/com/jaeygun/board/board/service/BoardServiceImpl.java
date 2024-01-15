@@ -16,6 +16,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,10 +91,43 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public void postDetail(Model model, long boardUid, UserDTO loginUser) {
+    public void postDetail(HttpServletRequest request, HttpServletResponse response, Model model, long boardUid, UserDTO loginUser) {
+
+        Board board = boardRepository.getBoardByBoardUid(boardUid);
+
+        // 게시글 조회수 증가 (쿠키로 확인)
+        Cookie[] cookies = request.getCookies();
+        boolean hitCookieFound = false;
+        boolean isCurrentPostSeen = false;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("hit".equals(cookie.getName())) {
+                    hitCookieFound = true;
+                    String[] hitCookieVal = cookie.getValue().split("/");
+                    for (String cookieVal : hitCookieVal) {
+                         if (board.getBoardUid() == Long.parseLong(cookieVal.split("_")[0])) {
+                             isCurrentPostSeen = true;
+                         }
+                    }
+                }
+
+                if (!hitCookieFound && !isCurrentPostSeen) {
+                    Cookie hitCookie = new Cookie("hit", board.getBoardUid() + "_" + TimeUtil.currentTime());
+                    hitCookie.setMaxAge(60 * 60 * 24);
+                    response.addCookie(hitCookie);
+                    board.setHit(board.getHit() + 1);
+                    boardRepository.save(board);
+                }
+            }
+        } else {
+            Cookie hitCookie = new Cookie("hit", board.getBoardUid() + "_" + TimeUtil.currentTime());
+            hitCookie.setMaxAge(60 * 60 * 24);
+            response.addCookie(hitCookie);
+            board.setHit(board.getHit() + 1);
+            boardRepository.save(board);
+        }
 
         // 게시글 정보
-        Board board = boardRepository.getBoardByBoardUid(boardUid);
         BoardDTO boardDTO = board.toDTO();
         model.addAttribute("board", boardDTO);
 

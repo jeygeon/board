@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -45,10 +47,10 @@ public class CommunityController {
     }
 
     @GetMapping("/post/{boardUid}")
-    public String post(HttpSession session, Model model, @PathVariable long boardUid) {
+    public String post(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model, @PathVariable long boardUid) {
 
         UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
-        boardService.postDetail(model, boardUid, loginUser);
+        boardService.postDetail(request, response, model, boardUid, loginUser);
         return "community/post";
     }
 }

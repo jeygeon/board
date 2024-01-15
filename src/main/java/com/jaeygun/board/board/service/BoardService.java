@@ -4,6 +4,8 @@ import com.jaeygun.board.board.dto.BoardDTO;
 import com.jaeygun.board.user.dto.UserDTO;
 import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface BoardService {
@@ -41,7 +43,7 @@ public interface BoardService {
      * @param boardUid 게시글 uid
      * @param loginUser 로그인 사용자
      */
-    void postDetail(Model model, long boardUid, UserDTO loginUser);
+    void postDetail(HttpServletRequest request, HttpServletResponse response, Model model, long boardUid, UserDTO loginUser);
 
     /**
      * 게시글 구독
