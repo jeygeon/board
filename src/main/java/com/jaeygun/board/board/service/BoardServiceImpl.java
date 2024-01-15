@@ -98,29 +98,23 @@ public class BoardServiceImpl implements BoardService{
         // 게시글 조회수 증가 (쿠키로 확인)
         Cookie[] cookies = request.getCookies();
         boolean hitCookieFound = false;
-        boolean isCurrentPostSeen = false;
+        String cookieName = "hit_" + board.getBoardUid();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if ("hit".equals(cookie.getName())) {
+                if (cookieName.equals(cookie.getName())) {
                     hitCookieFound = true;
-                    String[] hitCookieVal = cookie.getValue().split("/");
-                    for (String cookieVal : hitCookieVal) {
-                         if (board.getBoardUid() == Long.parseLong(cookieVal.split("_")[0])) {
-                             isCurrentPostSeen = true;
-                         }
-                    }
-                }
-
-                if (!hitCookieFound && !isCurrentPostSeen) {
-                    Cookie hitCookie = new Cookie("hit", board.getBoardUid() + "_" + TimeUtil.currentTime());
-                    hitCookie.setMaxAge(60 * 60 * 24);
-                    response.addCookie(hitCookie);
-                    board.setHit(board.getHit() + 1);
-                    boardRepository.save(board);
                 }
             }
+
+            if (!hitCookieFound) {
+                Cookie hitCookie = new Cookie("hit_" + board.getBoardUid(), String.valueOf(TimeUtil.currentTime()));
+                hitCookie.setMaxAge(60 * 60 * 24);
+                response.addCookie(hitCookie);
+                board.setHit(board.getHit() + 1);
+                boardRepository.save(board);
+            }
         } else {
-            Cookie hitCookie = new Cookie("hit", board.getBoardUid() + "_" + TimeUtil.currentTime());
+            Cookie hitCookie = new Cookie("hit_" + board.getBoardUid(), String.valueOf(TimeUtil.currentTime()));
             hitCookie.setMaxAge(60 * 60 * 24);
             response.addCookie(hitCookie);
             board.setHit(board.getHit() + 1);
