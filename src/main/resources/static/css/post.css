@@ -133,3 +133,8 @@ html, body {
 .reply-hit:hover {
     cursor: pointer;
 }
+
+.content img {
+    max-width: 100%;
+    height: auto;
+}

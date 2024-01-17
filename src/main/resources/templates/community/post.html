@@ -61,7 +61,7 @@
             </div>
         </div>
         <div class="postContent-section">
-            <textarea style="width: 100%" th:text="${board.content}"></textarea>
+            <div style="width: 100%" class="content" th:utext="${board.content}"></div>
             <div class="postBottom-section" style="display: flex; justify-content: flex-end; width: 100%;">
                 <div class="post-like-btn" style="margin-right: 20px;">
                     <th:block th:if="${likeStatus} == true">
