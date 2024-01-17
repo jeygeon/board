@@ -55,7 +55,7 @@
             previewStyle: 'vertical',
             initialEditType: 'wysiwyg',
             height: 'auto',
-            initialValue: '안녕하세요. METASTAR입니다.',
+            initialValue: '게시글을 작성해주세요.',
             hooks: {
                 async addImageBlobHook(blob, callback) { // 이미지 업로드 로직 커스텀
                     try {
@@ -94,24 +94,25 @@
                 return false;
             }
 
-            // url, parameter 세팅
-            const url = '/api/board/save',
-                  params = {
-                      'subject' : $('.post-subject').val(),
-                      'content' : editor.getHTML()
-                  };
-
             // API 호출
             try {
-                const response = fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
+                $.ajax({
+                    url: '/api/board/save',
+                    type: 'POST',
+                    data: {
+                        subject : $('.post-subject').val(),
+                        content : editor.getHTML()
                     },
-                    body: JSON.stringify(params),
-                });
+                    dataType: 'json',
+                    success:function(data) {
+                        alert(data.message);
+                        if (data.result) {
+                            window.location.href = data.redirectUrl;
+                        }
+                    }
+                })
             } catch(error) {
-                console.error('저장 실패 : ',  error)
+                alert('게시글 등록 중 에러가 발생했습니다.');
             }
         }
     </script>
